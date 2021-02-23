@@ -129,17 +129,22 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSecondsRealtime(second);
         Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
     }
-    /*private IEnumerator OnTriggerEnter2D(CapsuleCollider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Attack Enemy")
         {
             vida.SendMessage("PrendreMal", 5);
         }
-    }*/
-    /*private void Mort()
+    }
+    private void Mort()
     {
         print("Has mort");
-    }*/
+        Destroy(gameObject);
+    }
+    private void Pocio()
+    {
+        vida.SendMessage("RecuperarVida", 5);
+    }
 
 }
 

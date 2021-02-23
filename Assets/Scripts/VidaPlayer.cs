@@ -17,9 +17,14 @@ public class VidaPlayer : MonoBehaviour
     {
         Hp = Mathf.Clamp(Hp - quantitat, 0f, maxHp);
         vida.transform.localScale = new Vector2(Hp / maxHp, 1);
-        if (Hp >= 0f)
+        if (Hp <= 0f)
         {
             player.SendMessage("Mort");
         }
+    }
+    public void RecuperarVida(float quantitat)
+    {
+        Hp = Mathf.Clamp(Hp + quantitat, 0f, maxHp);
+        vida.transform.localScale = new Vector2(Hp / maxHp, 1);
     }
 }
