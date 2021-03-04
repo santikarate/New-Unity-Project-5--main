@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class pocio : MonoBehaviour
+public class PocioMana : MonoBehaviour
 {
     // Start is called before the first frame update
     public GameObject player;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.tag == "Player")
+        if (collision.tag == "Player")
         {
-            player.SendMessage("Pocio");
+            player.SendMessage("PocioMana");
             Destroy(gameObject);
         }
     }

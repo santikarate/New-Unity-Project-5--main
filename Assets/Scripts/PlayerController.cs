@@ -15,6 +15,10 @@ public class PlayerController : MonoBehaviour
 
     public GameObject vida;
 
+    public GameObject mana;
+
+    bool rebreMal;
+
     private void Awake()
     {
         Assert.IsNotNull(slashPrefab);
@@ -26,6 +30,7 @@ public class PlayerController : MonoBehaviour
     {
         attackCollider = transform.GetChild(0).GetComponent<CircleCollider2D>();
         attackCollider.enabled = false;
+        rebreMal = true;
     }
 
     // Update is called once per frame
@@ -83,9 +88,13 @@ public class PlayerController : MonoBehaviour
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool atacking = stateInfo.IsName("Puño");
         bool especial = stateInfo.IsName("atack especial");
-        if (Input.GetKeyDown(KeyCode.W) && !martillo && !atacking && !especial)
+        if (mana.GetComponent<ManaPlayer>().Mana > 20f)
         {
-            gameObject.GetComponent<Animator>().SetTrigger("Martillo");
+            if (Input.GetKeyDown(KeyCode.W) && !martillo && !atacking && !especial)
+            {
+                mana.SendMessage("GastarMana", 20f);
+                gameObject.GetComponent<Animator>().SetTrigger("Martillo");
+            }
         }
         if (atacking)
         {
@@ -100,9 +109,13 @@ public class PlayerController : MonoBehaviour
         bool atacking = stateInfo.IsName("Puño");
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool especial = stateInfo.IsName("atack especial");
-        if (Input.GetKeyDown(KeyCode.E) && !atacking && !martillo && !especial)
+        if (mana.GetComponent<ManaPlayer>().Mana > 20f)
         {
-            gameObject.GetComponent<Animator>().SetTrigger("Puño");
+            if (Input.GetKeyDown(KeyCode.E) && !atacking && !martillo && !especial)
+            {
+                mana.SendMessage("GastarMana", 20f);
+                gameObject.GetComponent<Animator>().SetTrigger("Puño");
+            }
         }
         if (martillo)
         {
@@ -117,24 +130,40 @@ public class PlayerController : MonoBehaviour
         bool atacking = stateInfo.IsName("Puño");
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool especial = stateInfo.IsName("atack especial");
-        if (Input.GetKeyDown(KeyCode.Q) && !atacking && !martillo && !especial)
+        if (mana.GetComponent<ManaPlayer>().Mana > 40f)
         {
-            gameObject.GetComponent<Animator>().SetTrigger("Atack especial");
-            StartCoroutine(Esperar(0.9f));
+            if (Input.GetKeyDown(KeyCode.Q) && !atacking && !martillo && !especial)
+            {
+                mana.SendMessage("GastarMana", 40f);
+                gameObject.GetComponent<Animator>().SetTrigger("Atack especial");
+                StartCoroutine(Esperar(0.9f));
+            }
         }
-
     }
     IEnumerator Esperar(float second)
     {
         yield return new WaitForSecondsRealtime(second);
         Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
     }
-    private void OnTriggerEnter2D(Collider2D collision)
+    private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Attack Enemy")
+        if (rebreMal)
         {
-            vida.SendMessage("PrendreMal", 5);
+            print("desactivant");
+            StartCoroutine(temporitzador(0.5f));
+            if (collision.tag == "Attack Enemy")
+            {
+                vida.SendMessage("PrendreMal", 20);
+            }
         }
+    }
+    IEnumerator temporitzador(float second)
+    {
+        print("false");
+        rebreMal = false;
+        yield return new WaitForSecondsRealtime(second);
+        rebreMal = true;
+        print("true");
     }
     private void Mort()
     {
@@ -143,9 +172,13 @@ public class PlayerController : MonoBehaviour
     }
     private void Pocio()
     {
-        vida.SendMessage("RecuperarVida", 5);
+        vida.SendMessage("RecuperarVida", 20);
     }
-
+    
+    private void PocioMana()
+    {
+        mana.SendMessage("RecuperarMana", 20);
+    }
 }
 
 

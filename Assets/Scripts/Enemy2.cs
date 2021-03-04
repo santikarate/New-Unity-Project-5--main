@@ -62,79 +62,82 @@ public class Enemy2 : MonoBehaviour
         }
         else
         {
-            comprovarColl();
-            if (col.tag == "Attack" && !attacked)
+            if (!attacked)
             {
-                Attacked();
-            }
-            AnimatorStateInfo stateInfo = gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-            if (!stateInfo.IsName("Puño"))
-            {
-                attacking = false;
-            }
-            Vector3 target = initialPosition;
-            RaycastHit2D hit = Physics2D.Raycast(
-                transform.position,
-                player.transform.position - transform.position,
-                visionRadius,
-                1 << LayerMask.NameToLayer("Player")
-                );
-            Vector3 forward = transform.TransformDirection(player.transform.position - transform.position);
-            Debug.DrawRay(transform.position, forward, Color.red);
-
-            if (hit.collider != null)
-            {
-                if (hit.collider.tag == "Player")
+                comprovarColl();
+                if (col.tag == "Attack")
                 {
-                    target = player.transform.position;
+                    Attacked();
                 }
-            }
-            float distance = Vector3.Distance(target, transform.position);
-            Vector3 dir = (target - transform.position).normalized;
-
-
-            if (target != initialPosition && distance < attackRadius && !attacked)
-            {
-                anim.SetBool("move", false);
-                if (!attacking)
+                AnimatorStateInfo stateInfo = gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+                if (!stateInfo.IsName("Puño"))
                 {
-                    if (!esperant)
+                    attacking = false;
+                }
+                Vector3 target = initialPosition;
+                RaycastHit2D hit = Physics2D.Raycast(
+                    transform.position,
+                    player.transform.position - transform.position,
+                    visionRadius,
+                    1 << LayerMask.NameToLayer("Player")
+                    );
+                Vector3 forward = transform.TransformDirection(player.transform.position - transform.position);
+                Debug.DrawRay(transform.position, forward, Color.red);
+
+                if (hit.collider != null)
+                {
+                    if (hit.collider.tag == "Player")
                     {
-                        Attack();
-                    } 
+                        target = player.transform.position;
+                    }
                 }
-                
-            }
-            else
-            {
-                bool puñ = stateInfo.IsName("Puño");
-                if (!puñ && !attacked)
-                {
-                    rb2d.MovePosition(transform.position + dir * speed * Time.deltaTime);
-                    anim.SetBool("move", true);
-                }
+                float distance = Vector3.Distance(target, transform.position);
+                Vector3 dir = (target - transform.position).normalized;
 
 
-            }
-            if (target == initialPosition && distance < 0.02f && !attacked)
-            {
-                anim.SetBool("move", false);
-                transform.position = initialPosition;
-            }
-            if (anim.GetBool("move") && !attacked)
-            {
-                if (dir.x > 0)
+                if (target != initialPosition && distance < attackRadius && !attacked)
                 {
-                    gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                    attackCollider.offset = new Vector2(0.4f, 0);
+                    anim.SetBool("move", false);
+                    if (!attacking)
+                    {
+                        if (!esperant)
+                        {
+                            Attack();
+                        }
+                    }
+
                 }
                 else
                 {
-                    gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                    attackCollider.offset = new Vector2(-0.4f, 0);
+                    bool puñ = stateInfo.IsName("Puño");
+                    if (!puñ && !attacked)
+                    {
+                        rb2d.MovePosition(transform.position + dir * speed * Time.deltaTime);
+                        anim.SetBool("move", true);
+                    }
+
+
                 }
+                if (target == initialPosition && distance < 0.02f && !attacked)
+                {
+                    anim.SetBool("move", false);
+                    transform.position = initialPosition;
+                }
+                if (anim.GetBool("move") && !attacked)
+                {
+                    if (dir.x > 0)
+                    {
+                        gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                        attackCollider.offset = new Vector2(0.4f, 0);
+                    }
+                    else
+                    {
+                        gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                        attackCollider.offset = new Vector2(-0.4f, 0);
+                    }
+                }
+                Debug.DrawLine(transform.position, target, Color.green);
             }
-            Debug.DrawLine(transform.position, target, Color.green);
         }
     }
     private void OnDrawGizmosSelected()
@@ -179,7 +182,7 @@ public class Enemy2 : MonoBehaviour
     }
     IEnumerator EstarAtacat(float seconds)
     {
-        anim.SetTrigger("Daño");
+        anim.SetTrigger("daño");
         gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
         attacked = true;
         StartCoroutine(colorNormal());
