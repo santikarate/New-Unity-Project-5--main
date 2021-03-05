@@ -181,6 +181,7 @@ MonoBehaviour:
   slashPrefab: {fileID: 7114479351112309840, guid: 4e50c454cc21c6f469195984a2052d2a,
     type: 3}
   vida: {fileID: 0}
+  mana: {fileID: 0}
 --- !u!50 &1115173517278431931
 Rigidbody2D:
   serializedVersion: 4
@@ -249,6 +250,6 @@ CapsuleCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.050341606, y: 0.057228446}
-  m_Size: {x: 1.3393822, y: 3.510543}
+  m_Offset: {x: 0.15808249, y: -0.14029682}
+  m_Size: {x: 1.1957273, y: 2.3972194}
   m_Direction: 0
