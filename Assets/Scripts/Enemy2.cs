@@ -168,7 +168,7 @@ public class Enemy2 : MonoBehaviour
         }
 
     }
-    private void OnGUI()
+    /*private void OnGUI()
     {
         Vector2 pos = Camera.main.WorldToScreenPoint(transform.position);
 
@@ -179,7 +179,7 @@ public class Enemy2 : MonoBehaviour
                 40,
                 24
             ), hp + "/" + maxHp);
-    }
+    }*/
     IEnumerator EstarAtacat(float seconds)
     {
         anim.SetTrigger("daño");
