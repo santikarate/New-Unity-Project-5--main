@@ -27,16 +27,16 @@ public class PlayerController : MonoBehaviour
     private void Awake()
     {
         Assert.IsNotNull(slashPrefab);
+        llegirMoneda();
     }
 
     // Start is called before the first frame update
-
+    
     void Start()
     {
         attackCollider = transform.GetChild(0).GetComponent<CircleCollider2D>();
         attackCollider.enabled = false;
         rebreMal = true;
-        monedesJoc = int.Parse(monedes.text);
     }
 
     // Update is called once per frame
@@ -178,10 +178,17 @@ public class PlayerController : MonoBehaviour
         print("Has mort");
         Destroy(gameObject);
     }
-    private void Pocio()
+    public bool Pocio()
     {
-        vida.SendMessage("RecuperarVida", 20);
-
+        if (monedesJoc > 50)
+        {
+            monedesJoc = monedesJoc - 50;
+            vida.SendMessage("RecuperarVida", 20);
+            return true;
+        } else
+        {
+            return false;
+        }
     }
     
     private void PocioMana()
@@ -195,6 +202,18 @@ public class PlayerController : MonoBehaviour
     public void bajarMonedes(int i)
     {
         monedesJoc = monedesJoc - i;
+    }
+    public void guardarMoneda()
+    {
+        PlayerPrefs.SetInt("Moneda", monedesJoc);
+    }
+    public void llegirMoneda()
+    {
+        monedesJoc= PlayerPrefs.GetInt("Moneda");
+    }
+    private void OnDestroy()
+    {
+        guardarMoneda();
     }
 }
 

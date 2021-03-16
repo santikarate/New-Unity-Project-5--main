@@ -7,10 +7,11 @@ public class Moneda : MonoBehaviour
 {
     // Start is called before the first frame update
 
-    public string textValue;
+    private string textValue;
     public Text textElement;
     void Start()
     {
+        textValue = PlayerPrefs.GetInt("Moneda").ToString();
         textElement.text = textValue;
     }
 
