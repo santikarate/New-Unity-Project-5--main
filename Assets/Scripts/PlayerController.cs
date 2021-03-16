@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.Assertions;
 
 public class PlayerController : MonoBehaviour
@@ -17,7 +18,11 @@ public class PlayerController : MonoBehaviour
 
     public GameObject mana;
 
+    public Text monedes;
+
     bool rebreMal;
+
+    private int monedesJoc;
 
     private void Awake()
     {
@@ -31,11 +36,13 @@ public class PlayerController : MonoBehaviour
         attackCollider = transform.GetChild(0).GetComponent<CircleCollider2D>();
         attackCollider.enabled = false;
         rebreMal = true;
+        monedesJoc = int.Parse(monedes.text);
     }
 
     // Update is called once per frame
     void Update()
     {
+        monedes.text = monedesJoc.ToString();
         puño();
         atack1();
         atackEspecial();
@@ -114,6 +121,7 @@ public class PlayerController : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.E) && !atacking && !martillo && !especial)
             {
                 mana.SendMessage("GastarMana", 20f);
+                Convert.ToInt32(monedes);
                 gameObject.GetComponent<Animator>().SetTrigger("Puño");
             }
         }
@@ -173,11 +181,20 @@ public class PlayerController : MonoBehaviour
     private void Pocio()
     {
         vida.SendMessage("RecuperarVida", 20);
+
     }
     
     private void PocioMana()
     {
         mana.SendMessage("RecuperarMana", 20);
+    }
+    public void pujarMonedes(int i)
+    {
+        monedesJoc = monedesJoc + i;
+    }
+    public void bajarMonedes(int i)
+    {
+        monedesJoc = monedesJoc - i;
     }
 }
 

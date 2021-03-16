@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System.Threading;
 
 public class Enemy2 : MonoBehaviour
@@ -20,6 +21,7 @@ public class Enemy2 : MonoBehaviour
     [Tooltip("Velocitat d'atac (segons entre atacs)")]
     public float attackSpeed = 2f;
     private bool mortActive;
+    public Text monedes;
 
     [Tooltip("Puntos de vida")]
     public int maxHp = 10;
@@ -200,6 +202,7 @@ public class Enemy2 : MonoBehaviour
         muerto = true;
         yield return new WaitForSeconds(2.7f);
         Destroy(gameObject);
+        player.SendMessage("pujarMonedes", 200);
     }
     IEnumerator esperar()
     {
