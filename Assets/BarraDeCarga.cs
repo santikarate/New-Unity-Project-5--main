@@ -14,7 +14,9 @@ public class BarraDeCarga : MonoBehaviour
    
     private void Start()
     {
+        Barra = 0f;
         bloquejador = false;
+        carga.transform.localScale = new Vector2(0, 1);
     }
 
     private void Update()
@@ -25,19 +27,22 @@ public class BarraDeCarga : MonoBehaviour
             StartCoroutine(pujarCarrega());
         }
     }
-    public void RecuperarVida(float quantitat)
+    public void carregar(float quantitat)
     {
         Barra = Mathf.Clamp(Barra + quantitat, 0f, BarraMax);
         print(Barra / BarraMax);
         carga.transform.localScale = new Vector2(Barra / BarraMax, 1);
         if ((Barra / BarraMax) == 1)
         {
-            AsyncOperation operation = SceneManager.LoadSceneAsync("Level1");
+            Barra = 0;
+            bloquejador = false;
+            carga.transform.localScale = new Vector2(0, 1);
+            SceneManager.LoadScene("Level1");
         }
     }
     IEnumerator pujarCarrega()
     {
-        RecuperarVida(1f);
+        carregar(1f);
         yield return new WaitForSeconds(0.4f);
         bloquejador = false;
     }

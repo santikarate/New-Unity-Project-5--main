@@ -22,10 +22,11 @@ public class pocio : MonoBehaviour
         {
             if (!destruit) { 
                 treureText = false;
-                missatge.text = "Pocio de vida - Preu: 50 monedes \n Clica->Enter - Per Comprar";
+                missatge.text = "Pocio de vida - Preu: 50 monedes \n Clica-> [P] - Per Comprar";
                 if (Input.GetKey(KeyCode.P))
                 {
                     curar();
+                    missatge.text = "";
                 }
             } else
             {
