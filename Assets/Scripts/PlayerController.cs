@@ -162,6 +162,9 @@ public class PlayerController : MonoBehaviour
             if (collision.tag == "Attack Enemy")
             {
                 vida.SendMessage("PrendreMal", 20);
+            } else if (collision.tag == "Attack Especial")
+            {
+                vida.SendMessage("PrendreMal", 40);
             }
         }
     }
@@ -198,6 +201,7 @@ public class PlayerController : MonoBehaviour
     public void pujarMonedes(int i)
     {
         monedesJoc = monedesJoc + i;
+        mana.SendMessage("RecuperarMana", 40);
     }
     public void bajarMonedes(int i)
     {
@@ -205,11 +209,11 @@ public class PlayerController : MonoBehaviour
     }
     public void guardarMoneda()
     {
-        PlayerPrefs.SetInt("Moneda", monedesJoc);
+        PlayerPrefs.SetInt("Moneda", monedesJoc + PlayerPrefs.GetInt("Moneda"));
     }
     public void llegirMoneda()
     {
-        monedesJoc= PlayerPrefs.GetInt("Moneda");
+        monedesJoc= 0;
     }
     private void OnDestroy()
     {

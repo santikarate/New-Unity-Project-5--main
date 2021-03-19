@@ -11,9 +11,11 @@ public class BarraDeCarga : MonoBehaviour
     private float BarraMax = 20f;
     public Image carga;
     private bool bloquejador;
-   
+
+
     private void Start()
     {
+        print("Carregant");
         Barra = 0f;
         bloquejador = false;
         carga.transform.localScale = new Vector2(0, 1);
@@ -34,16 +36,14 @@ public class BarraDeCarga : MonoBehaviour
         carga.transform.localScale = new Vector2(Barra / BarraMax, 1);
         if ((Barra / BarraMax) == 1)
         {
-            Barra = 0;
-            bloquejador = false;
-            carga.transform.localScale = new Vector2(0, 1);
             SceneManager.LoadScene("Level1");
         }
     }
     IEnumerator pujarCarrega()
     {
-        carregar(1f);
-        yield return new WaitForSeconds(0.4f);
+        carregar(0.1f);
+        yield return new WaitForSeconds(0.02f);
         bloquejador = false;
     }
+
 }

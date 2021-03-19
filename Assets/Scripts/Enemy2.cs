@@ -21,7 +21,6 @@ public class Enemy2 : MonoBehaviour
     [Tooltip("Velocitat d'atac (segons entre atacs)")]
     public float attackSpeed = 2f;
     private bool mortActive;
-    public Text monedes;
 
     [Tooltip("Puntos de vida")]
     public int maxHp = 10;
@@ -34,6 +33,15 @@ public class Enemy2 : MonoBehaviour
 
     Animator anim;
     Rigidbody2D rb2d;
+
+    enum tipusComportament { pasiu, persecucio, atac}
+    tipusComportament comportament = tipusComportament.pasiu;
+
+    public float entradaZonaPersecució;
+    public float sortidaZonaPersecució;
+    public float distanciaAtac;
+
+    float distanciaPlayer;
     // Start is called before the first frame update
     void Start()
     {
@@ -54,6 +62,7 @@ public class Enemy2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         if (muerto)
         {
             if (!mortActive)
@@ -138,7 +147,6 @@ public class Enemy2 : MonoBehaviour
                         attackCollider.offset = new Vector2(-0.4f, 0);
                     }
                 }
-                Debug.DrawLine(transform.position, target, Color.green);
             }
         }
     }

@@ -2,37 +2,35 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Slash : MonoBehaviour
+public class AttackFreeza : MonoBehaviour
 {
+    private Rigidbody2D explosiu;
     public GameObject player;
-    private Rigidbody2D bolaEnergiaRB;
-
     public float tempsDeVida;
     public float speed;
-
     public float daño;
 
-
-
-    private void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-        bolaEnergiaRB = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        explosiu = GetComponent<Rigidbody2D>();
+        player = GameObject.FindGameObjectWithTag("Jefe");
     }
-    private void Start()
+
+    // Update is called once per frame
+    void Update()
     {
         if (player.gameObject.GetComponent<SpriteRenderer>().flipX)
         {
-            bolaEnergiaRB.velocity = new Vector2(-speed, bolaEnergiaRB.velocity.y);
+            explosiu.velocity = new Vector2(-speed, explosiu.velocity.y);
             transform.localScale = new Vector3(-1, 1, 1);
             transform.position = new Vector3(transform.position.x - 3.2f, transform.position.y + 0f, transform.position.y + 0f);
-        } 
+        }
         else
         {
-            bolaEnergiaRB.velocity = new Vector2(speed, bolaEnergiaRB.velocity.y);
+            explosiu.velocity = new Vector2(speed, explosiu.velocity.y);
             transform.localScale = new Vector3(1, 1, 1);
         }
-
     }
     private IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
@@ -40,11 +38,13 @@ public class Slash : MonoBehaviour
         {
             yield return new WaitForSeconds(tempsDeVida);
             Destroy(gameObject);
-        } else if (collision.tag != "Player" && collision.tag != "Attack")
+        }
+        else if (collision.tag != "Jefe" && collision.tag != "Attack")
         {
-            if (collision.tag == "Enemic") collision.SendMessage("Attacked");
-            Destroy(gameObject);
+            if (collision.tag == "Player") {
+                collision.SendMessage("Attacked");
+                Destroy(gameObject);
+            }
         }
     }
 }
-

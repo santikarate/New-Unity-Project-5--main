@@ -11,6 +11,7 @@ TagManager:
   - mapa
   - Attack Enemy
   - Missatge
+  - Jefe
   layers:
   - Default
   - TransparentFX
