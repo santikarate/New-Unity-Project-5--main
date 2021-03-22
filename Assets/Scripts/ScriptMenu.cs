@@ -10,12 +10,14 @@ public class ScriptMenu : MonoBehaviour
     public static bool mort;
 
     public GameObject menuPause, sortirPausa, mortMenu; 
+    public GameObject player;
     // Start is called before the first frame update
     void Start()
     {
         menuPause.SetActive(false);
         sortirPausa.SetActive(false);
         mortMenu.SetActive(false);
+        Time.timeScale = 1;
     }
 
     // Update is called once per frame
@@ -27,6 +29,10 @@ public class ScriptMenu : MonoBehaviour
             {
                 mostrarMenuPausa();
             }
+        }
+        if (player == null)
+        {
+            mortMenu.SetActive(true);
         }
     }
 

@@ -14,12 +14,15 @@ public class SeguimientoCamara : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        float posX = Mathf.SmoothDamp(transform.position.x, follow.transform.position.x, ref velocity.x, smoothTime);
-        float posY = Mathf.SmoothDamp(transform.position.y, follow.transform.position.y, ref velocity.y, smoothTime);
+        if (follow != null)
+        {
+            float posX = Mathf.SmoothDamp(transform.position.x, follow.transform.position.x, ref velocity.x, smoothTime);
+            float posY = Mathf.SmoothDamp(transform.position.y, follow.transform.position.y, ref velocity.y, smoothTime);
 
-        transform.position = new Vector3(
-            Mathf.Clamp(posX, minCampPos.x, maxCamPos.x),
-            Mathf.Clamp(posY, minCampPos.y, maxCamPos.y), 
-            transform.position.z);
+            transform.position = new Vector3(
+                Mathf.Clamp(posX, minCampPos.x, maxCamPos.x),
+                Mathf.Clamp(posY, minCampPos.y, maxCamPos.y),
+                transform.position.z);
+        }
     }
 }

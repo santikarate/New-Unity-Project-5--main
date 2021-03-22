@@ -8,11 +8,15 @@ public class ManaPlayer : MonoBehaviour
     public float maxMana = 200f;
     public Image mana;
     public GameObject player;
+    public Text manaText;
     private void Start()
     {
         Mana = maxMana;
     }
-
+    private void Update()
+    {
+        manaText.text = Mana + " / " + maxMana;
+    }
     public void GastarMana(float quantitat)
     {
         Mana = Mathf.Clamp(Mana - quantitat, 0f, maxMana);

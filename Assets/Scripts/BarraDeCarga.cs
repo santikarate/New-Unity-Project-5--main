@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
@@ -12,7 +11,6 @@ public class BarraDeCarga : MonoBehaviour
     public Image carga;
     private bool bloquejador;
 
-
     private void Start()
     {
         print("Carregant");
@@ -20,7 +18,10 @@ public class BarraDeCarga : MonoBehaviour
         bloquejador = false;
         carga.transform.localScale = new Vector2(0, 1);
     }
-
+    private void FixedUpdate()
+    {
+        print("Adeu");
+    }
     private void Update()
     {
         if (!bloquejador)
@@ -36,6 +37,7 @@ public class BarraDeCarga : MonoBehaviour
         carga.transform.localScale = new Vector2(Barra / BarraMax, 1);
         if ((Barra / BarraMax) == 1)
         {
+            bloquejador = false;
             SceneManager.LoadScene("Level1");
         }
     }

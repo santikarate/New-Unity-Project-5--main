@@ -8,9 +8,14 @@ public class VidaPlayer : MonoBehaviour
     public float maxHp = 20f;
     public Image vida;
     public GameObject player;
+    public Text vidaText;
     private void Start()
     {
         Hp = maxHp;
+    }
+    private void Update()
+    {
+        vidaText.text = Hp +" / " + maxHp;
     }
 
     public void PrendreMal(float quantitat)

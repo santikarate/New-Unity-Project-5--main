@@ -9,6 +9,7 @@ using UnityEngine.Assertions;
 public class PlayerController : MonoBehaviour
 {
     CircleCollider2D attackCollider;
+    public GameObject atack;
 
     public Transform bolaEnergiaInici;
 
@@ -24,6 +25,8 @@ public class PlayerController : MonoBehaviour
 
     private int monedesJoc;
 
+    private bool golpejat, morint, num;
+
     private void Awake()
     {
         Assert.IsNotNull(slashPrefab);
@@ -35,19 +38,33 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         attackCollider = transform.GetChild(0).GetComponent<CircleCollider2D>();
-        attackCollider.enabled = false;
+        //attackCollider.enabled = false;
         rebreMal = true;
+        morint = false;
+        golpejat = false;
+        num = false; 
     }
-
     // Update is called once per frame
     void Update()
     {
-        monedes.text = monedesJoc.ToString();
-        puño();
-        atack1();
-        atackEspecial();
-        moveY();
-        moveX();
+        if (!morint && !golpejat)
+        {
+            monedes.text = monedesJoc.ToString();
+            puño();
+            atack1();
+            atackEspecial();
+            moveY();
+            moveX();
+        } else if (golpejat)
+        {
+            if (num)
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(-500f / 2 * Time.deltaTime, 0));
+            } else
+            {
+                gameObject.GetComponent<Rigidbody2D>().AddForce(new Vector2(500f / 2 * Time.deltaTime, 0));
+            }
+        }
     }
     private void moveX()
     {
@@ -65,7 +82,6 @@ public class PlayerController : MonoBehaviour
             gameObject.GetComponent<Animator>().SetBool("pujar", false);
             gameObject.GetComponent<SpriteRenderer>().flipX = true;
             attackCollider.offset = new Vector2(-0.4f, 0);
-
         }
         if (!Input.GetKey("left") && !Input.GetKey("right"))
         {
@@ -95,19 +111,13 @@ public class PlayerController : MonoBehaviour
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool atacking = stateInfo.IsName("Puño");
         bool especial = stateInfo.IsName("atack especial");
-        if (mana.GetComponent<ManaPlayer>().Mana > 20f)
+        if (mana.GetComponent<ManaPlayer>().Mana >= 20f)
         {
             if (Input.GetKeyDown(KeyCode.W) && !martillo && !atacking && !especial)
             {
                 mana.SendMessage("GastarMana", 20f);
                 gameObject.GetComponent<Animator>().SetTrigger("Martillo");
             }
-        }
-        if (atacking)
-        {
-            float playbackTime = stateInfo.normalizedTime;
-            if (playbackTime > 0.4 && playbackTime < 0.7) attackCollider.enabled = true;
-            else attackCollider.enabled = false;
         }
     }
     private void puño()
@@ -116,7 +126,7 @@ public class PlayerController : MonoBehaviour
         bool atacking = stateInfo.IsName("Puño");
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool especial = stateInfo.IsName("atack especial");
-        if (mana.GetComponent<ManaPlayer>().Mana > 20f)
+        if (mana.GetComponent<ManaPlayer>().Mana >= 20f)
         {
             if (Input.GetKeyDown(KeyCode.E) && !atacking && !martillo && !especial)
             {
@@ -125,12 +135,6 @@ public class PlayerController : MonoBehaviour
                 gameObject.GetComponent<Animator>().SetTrigger("Puño");
             }
         }
-        if (martillo)
-        {
-            float playbackTime = stateInfo.normalizedTime;
-            if (playbackTime > 0.4 && playbackTime < 0.7) attackCollider.enabled = true;
-            else attackCollider.enabled = false;
-        }
     }
     private void atackEspecial()
     {
@@ -138,7 +142,7 @@ public class PlayerController : MonoBehaviour
         bool atacking = stateInfo.IsName("Puño");
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool especial = stateInfo.IsName("atack especial");
-        if (mana.GetComponent<ManaPlayer>().Mana > 40f)
+        if (mana.GetComponent<ManaPlayer>().Mana >= 40f)
         {
             if (Input.GetKeyDown(KeyCode.Q) && !atacking && !martillo && !especial)
             {
@@ -153,33 +157,50 @@ public class PlayerController : MonoBehaviour
         yield return new WaitForSecondsRealtime(second);
         Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
     }
-    private void OnTriggerStay2D(Collider2D collision)
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (rebreMal)
         {
-            print("desactivant");
-            StartCoroutine(temporitzador(0.5f));
             if (collision.tag == "Attack Enemy")
             {
+                num = collision.GetComponentsInParent<SpriteRenderer>()[0].flipX;
                 vida.SendMessage("PrendreMal", 20);
+                if (!morint)
+                {
+                    StartCoroutine(temporitzador(0.5f));
+                }
             } else if (collision.tag == "Attack Especial")
             {
                 vida.SendMessage("PrendreMal", 40);
+                if (!morint)
+                {
+                    StartCoroutine(temporitzador(0.5f));
+                }
             }
         }
     }
     IEnumerator temporitzador(float second)
     {
-        print("false");
         rebreMal = false;
-        yield return new WaitForSecondsRealtime(second);
+        gameObject.GetComponent<Animator>().SetTrigger("Mal");
+        StartCoroutine(canviColor());
+        golpejat = true;
+        yield return new WaitForSeconds(0.8f);
         rebreMal = true;
-        print("true");
+        golpejat = false;
+    }
+    IEnumerator canviColor()
+    {
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
+        yield return new WaitForSeconds(0.3f);
+        gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
     }
     private void Mort()
     {
-        print("Has mort");
-        Destroy(gameObject);
+        if (!morint)
+        {
+            StartCoroutine(Morir());
+        }
     }
     public bool Pocio()
     {
@@ -213,11 +234,18 @@ public class PlayerController : MonoBehaviour
     }
     public void llegirMoneda()
     {
-        monedesJoc= 0;
+        monedesJoc = 0;
     }
     private void OnDestroy()
     {
         guardarMoneda();
+    }
+    IEnumerator Morir()
+    {
+        gameObject.GetComponent<Animator>().SetTrigger("Morir");
+        morint = true;
+        yield return new WaitForSeconds(1.5f);
+        Destroy(gameObject);
     }
 }
 

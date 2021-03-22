@@ -17,31 +17,36 @@ public class pocio : MonoBehaviour
     }
     private void Update()
     {
-
-        if (comprovarDistancia())
+        if (player != null)
         {
-            if (!destruit) { 
-                treureText = false;
-                missatge.text = "Pocio de vida - Preu: 50 monedes \n Clica-> [P] - Per Comprar";
-                if (Input.GetKey(KeyCode.P))
+            if (comprovarDistancia())
+            {
+                if (!destruit)
                 {
-                    curar();
-                    missatge.text = "";
+                    treureText = false;
+                    missatge.text = "Pocio de vida - Preu: 50 monedes \n Clica-> [P] - Per Comprar";
+                    if (Input.GetKey(KeyCode.P))
+                    {
+                        curar();
+                        missatge.text = "";
+                    }
                 }
-            } else
+                else
+                {
+                    if (!treureText)
+                    {
+                        treureText = true;
+                        missatge.text = "";
+                    }
+                }
+            }
+            else
             {
                 if (!treureText)
                 {
                     treureText = true;
                     missatge.text = "";
                 }
-            }
-        } else
-        {
-            if (!treureText)
-            {
-                treureText = true;
-                missatge.text = "";
             }
         }
     }
@@ -64,10 +69,10 @@ public class pocio : MonoBehaviour
     }
     private void curar()
     {
-        print(player.GetComponent<PlayerController>().Pocio());
-        if (player.GetComponent<PlayerController>().Pocio())
+        if (!player.GetComponent<PlayerController>().Pocio())
         {
-            Destroy(gameObject);
+            return;
         }
+        Destroy(gameObject);
     }
 }

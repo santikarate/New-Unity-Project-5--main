@@ -7,16 +7,6 @@ public class Main_menu : MonoBehaviour
 {
     public void EscenaJoc()
     {
-        SceneManager.LoadScene("Pantalla de carga");
-        //StartCoroutine(this.CargarEscena());
+        SceneManager.LoadScene("Level1");
     }
-    /*IEnumerator CargarEscena()
-    {
-        SceneManager.LoadScene("Pantalla de carga");
-        AsyncOperation operation = SceneManager.LoadSceneAsync("Pantalla de carga");
-        while (!operation.isDone)
-        {
-            yield return null;
-        }
-    }*/
 }
