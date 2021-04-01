@@ -33,6 +33,7 @@ public class Enemy2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //exclamacio.text = "";
         player = GameObject.FindGameObjectWithTag("Player");
         mortActive = false;
         initialPosition = transform.position;
@@ -87,46 +88,49 @@ public class Enemy2 : MonoBehaviour
                         {
                             target = player.transform.position;
                         }
-                    }
-                    float distance = Vector3.Distance(target, transform.position);
-                    Vector3 dir = (target - transform.position).normalized;
-                    if (target != initialPosition && distance < attackRadius && !attacked)
-                    {
-                        anim.SetBool("move", false);
-                        if (!attacking)
+                        float distance = Vector3.Distance(target, transform.position);
+                        Vector3 dir = (target - transform.position).normalized;
+                        if (target != initialPosition && distance < attackRadius && !attacked)
                         {
-                            if (!esperant)
+                            anim.SetBool("move", false);
+                            if (!attacking)
                             {
-                                Attack();
+                                if (!esperant)
+                                {
+                                    Attack();
+                                }
                             }
-                        }
-                    }
-                    else
-                    {
-                        bool puñ = stateInfo.IsName("Puño");
-                        if (!puñ && !attacked)
-                        {
-                            rb2d.MovePosition(transform.position + dir * speed * Time.deltaTime);
-                            anim.SetBool("move", true);
-                        }
-                    }
-                    if (target == initialPosition && distance < 0.02f && !attacked)
-                    {
-                        anim.SetBool("move", false);
-                        transform.position = initialPosition;
-                    }
-                    if (anim.GetBool("move") && !attacked)
-                    {
-                        if (dir.x > 0)
-                        {
-                            gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                            attackCollider.offset = new Vector2(0.4f, 0);
                         }
                         else
                         {
-                            gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                            attackCollider.offset = new Vector2(-0.4f, 0);
+                            bool puñ = stateInfo.IsName("Puño");
+                            if (!puñ && !attacked)
+                            {
+                                rb2d.MovePosition(transform.position + dir * speed * Time.deltaTime);
+                                anim.SetBool("move", true);
+                            }
                         }
+                        if (target == initialPosition && distance < 0.02f && !attacked)
+                        {
+                            anim.SetBool("move", false);
+                            transform.position = initialPosition;
+                        }
+                        if (anim.GetBool("move") && !attacked)
+                        {
+                            if (dir.x > 0)
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                                attackCollider.offset = new Vector2(0.4f, 0);
+                            }
+                            else
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                                attackCollider.offset = new Vector2(-0.4f, 0);
+                            }
+                        }
+                    } else
+                    {
+                        anim.SetBool("move", false);
                     }
                 } else
                 {

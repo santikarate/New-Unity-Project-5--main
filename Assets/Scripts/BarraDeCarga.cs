@@ -17,6 +17,7 @@ public class BarraDeCarga : MonoBehaviour
         Barra = 0f;
         bloquejador = false;
         carga.transform.localScale = new Vector2(0, 1);
+        Time.timeScale = 1;
     }
     private void FixedUpdate()
     {
@@ -44,7 +45,7 @@ public class BarraDeCarga : MonoBehaviour
     IEnumerator pujarCarrega()
     {
         carregar(0.1f);
-        yield return new WaitForSeconds(0.02f);
+        yield return new WaitForSeconds(0.01f);
         bloquejador = false;
     }
 
