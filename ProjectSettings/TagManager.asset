@@ -12,6 +12,8 @@ TagManager:
   - Attack Enemy
   - Missatge
   - Jefe
+  - AttackFinalJefe
+  - AttackJefe
   layers:
   - Default
   - TransparentFX
@@ -28,8 +30,8 @@ TagManager:
   - Attack Enemy
   - missatge
   - jefe
-  - 
-  - 
+  - atackjefe
+  - atackjefefinal
   - 
   - 
   - 

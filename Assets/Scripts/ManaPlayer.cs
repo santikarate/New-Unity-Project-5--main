@@ -21,10 +21,6 @@ public class ManaPlayer : MonoBehaviour
     {
         Mana = Mathf.Clamp(Mana - quantitat, 0f, maxMana);
         mana.transform.localScale = new Vector2(Mana / maxMana, 1);
-        if (Mana <= 0f)
-        {
-            player.SendMessage("Mort");
-        }
     }
     public void RecuperarMana(float quantitat)
     {

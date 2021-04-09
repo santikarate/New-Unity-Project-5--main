@@ -8,10 +8,12 @@ public class JefeFinal : MonoBehaviour
     public float attackRadius;
     public float attacEspecialRadius;
     public float speed;
+    
     [Tooltip("Temps d'epera per atacar")]
     public float Espera;
     CircleCollider2D attackCollider;
     bool attacking;
+    bool attackingEspecial;
     private bool muerto;
     GameObject player;
     bool attacked;
@@ -30,6 +32,9 @@ public class JefeFinal : MonoBehaviour
 
     Animator anim;
     Rigidbody2D rb2d;
+
+    public GameObject slashPrefab;
+    public Transform bolaEnergiaInici;
     // Start is called before the first frame update
     void Start()
     {
@@ -41,10 +46,10 @@ public class JefeFinal : MonoBehaviour
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         attackCollider = transform.GetChild(0).GetComponent<CircleCollider2D>();
-        //attackCollider.enabled = false;
         hp = maxHp;
         muerto = false;
         esperant = false;
+        attackingEspecial = false;
     }
 
     // Update is called once per frame
@@ -77,11 +82,12 @@ public class JefeFinal : MonoBehaviour
                     RaycastHit2D hit = Physics2D.Raycast(
                         transform.position,
                         player.transform.position - transform.position,
-                        visionRadius,
+                        attacEspecialRadius,
                         1 << LayerMask.NameToLayer("Player")
                         );
                     Vector3 forward = transform.TransformDirection(player.transform.position - transform.position);
                     Debug.DrawRay(transform.position, forward, Color.red);
+                    Vector3 dir = (target - transform.position).normalized;
                     if (hit.collider != null)
                     {
                         if (hit.collider.tag == "Player")
@@ -89,7 +95,6 @@ public class JefeFinal : MonoBehaviour
                             target = player.transform.position;
                         }
                         float distance = Vector3.Distance(target, transform.position);
-                        Vector3 dir = (target - transform.position).normalized;
                         if (target != initialPosition && distance < attackRadius && !attacked)
                         {
                             anim.SetBool("move", false);
@@ -114,6 +119,15 @@ public class JefeFinal : MonoBehaviour
                         {
                             anim.SetBool("move", false);
                             transform.position = initialPosition;
+                        } else if (distance < attacEspecialRadius && distance > visionRadius && !attacked)
+                        {
+                            anim.SetBool("move", false);
+                            if (!attackingEspecial)
+                            {
+                                attackingEspecial = true;
+                                StartCoroutine(AtacEspecial());
+                                print("atacEspecial");
+                            }
                         }
                         if (anim.GetBool("move") && !attacked)
                         {
@@ -128,17 +142,11 @@ public class JefeFinal : MonoBehaviour
                                 attackCollider.offset = new Vector2(-0.4f, 0);
                             }
                         }
+                        
                     }
                     else
                     {
-                        float distance = Vector3.Distance(target, transform.position);
-                        if (distance < attacEspecialRadius)
-                        {
-                           
-                        } else
-                        {
-                            anim.SetBool("move", false);
-                        }
+                        anim.SetBool("move", false);
                     }
                 }
                 else
@@ -165,6 +173,7 @@ public class JefeFinal : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(transform.position, visionRadius);
         Gizmos.DrawWireSphere(transform.position, attackRadius);
+        Gizmos.DrawWireSphere(transform.position, attacEspecialRadius);
     }
     private void Attack()
     {
@@ -225,5 +234,22 @@ public class JefeFinal : MonoBehaviour
             print("hola");
             Attacked();
         }
+    }
+    IEnumerator AtacEspecial()
+    {
+        anim.SetTrigger("especial");
+        yield return new WaitForSecondsRealtime(0.8f);
+        if (!gameObject.GetComponent<SpriteRenderer>().flipX)
+        {
+            bolaEnergiaInici.transform.position = new Vector2(-1.79f, 0.25f);
+            Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
+        } else
+        {
+            bolaEnergiaInici.transform.position = new Vector2(1.79f, 0.25f);
+            Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
+        }
+        
+        yield return new WaitForSecondsRealtime(3f);
+        attackingEspecial = false;
     }
 }

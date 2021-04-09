@@ -171,12 +171,16 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (collision.tag == "Attack Especial")
             {
-                vida.SendMessage("PrendreMal", 40);
-                if (!morint)
-                {
-                    StartCoroutine(temporitzador(0.5f));
-                }
+                atacatEspecial();
             }
+        }
+    }
+    private void atacatEspecial()
+    {
+        vida.SendMessage("PrendreMal", 40);
+        if (!morint)
+        {
+            StartCoroutine(temporitzador(0.5f));
         }
     }
     IEnumerator temporitzador(float second)

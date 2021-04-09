@@ -5,45 +5,63 @@ using UnityEngine;
 public class AttackFreeza : MonoBehaviour
 {
     private Rigidbody2D explosiu;
-    public GameObject player;
+    private GameObject player;
+    private GameObject JefeFinal;
     public float tempsDeVida;
     public float speed;
     public float daño;
+    private bool final;
+    private Vector3 direccio;
+    private Vector3 vector;
 
     // Start is called before the first frame update
     void Start()
     {
         explosiu = GetComponent<Rigidbody2D>();
-        player = GameObject.FindGameObjectWithTag("Jefe");
+        player = GameObject.FindGameObjectWithTag("Player");
+        JefeFinal = GameObject.FindGameObjectWithTag("Jefe");
+        final = false;
+        direccio = player.GetComponent<Transform>().position;
+        vector = new Vector3(direccio.x - gameObject.transform.position.x,direccio.y - gameObject.transform.position.y, 0);
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (player.gameObject.GetComponent<SpriteRenderer>().flipX)
+        if (final)
         {
-            explosiu.velocity = new Vector2(-speed, explosiu.velocity.y);
-            transform.localScale = new Vector3(-1, 1, 1);
-            transform.position = new Vector3(transform.position.x - 3.2f, transform.position.y + 0f, transform.position.y + 0f);
+            AnimatorStateInfo stateInfo = gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
+            bool anim = stateInfo.IsName("explosio");
+            if (!anim)
+            {
+                Destroy(gameObject);
+            }
         }
         else
         {
-            explosiu.velocity = new Vector2(speed, explosiu.velocity.y);
-            transform.localScale = new Vector3(1, 1, 1);
+
+            //transform.position = new Vector3(transform.position.x + vector.x, transform.position.y + vector.y, transform.position.y + 0f);
+            Vector3 dir = (direccio - transform.position).normalized;
+            explosiu.velocity = new Vector2(0.2f, 0.2f);
+            gameObject.GetComponent<Rigidbody2D>().MovePosition(transform.position + vector * 0.4f * speed * Time.deltaTime);
         }
     }
     private IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.tag == "object")
         {
+            gameObject.GetComponent<Animator>().SetTrigger("Explosio");
             yield return new WaitForSeconds(tempsDeVida);
-            Destroy(gameObject);
+            final = true;
+            //Destroy(gameObject);
         }
         else if (collision.tag != "Jefe" && collision.tag != "Attack")
         {
             if (collision.tag == "Player") {
-                collision.SendMessage("Attacked");
-                Destroy(gameObject);
+                collision.SendMessage("atacatEspecial");
+                gameObject.GetComponent<Animator>().SetTrigger("Explosio");
+                final = true;
+                //Destroy(gameObject);
             }
         }
     }
