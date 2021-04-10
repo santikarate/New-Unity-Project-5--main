@@ -17,9 +17,14 @@ public class AttackFreeza : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        JefeFinal = GameObject.FindGameObjectWithTag("Jefe");
+        if (JefeFinal.gameObject.GetComponent<SpriteRenderer>().flipX)
+        {
+            transform.position = new Vector3(transform.position.x - 3.58f, transform.position.y + 0f, transform.position.z + 0f);
+        }
         explosiu = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
-        JefeFinal = GameObject.FindGameObjectWithTag("Jefe");
+        
         final = false;
         direccio = player.GetComponent<Transform>().position;
         vector = new Vector3(direccio.x - gameObject.transform.position.x,direccio.y - gameObject.transform.position.y, 0);

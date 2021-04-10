@@ -106,11 +106,22 @@ public class JefeFinal : MonoBehaviour
                                 }
                             }
                         }
-                        else
+                        else if(distance > attackRadius && !attacked && distance < visionRadius)
                         {
+                            if (dir.x > 0)
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                                attackCollider.offset = new Vector2(0.4f, 0);
+                            }
+                            else
+                            {
+                                gameObject.GetComponent<SpriteRenderer>().flipX = true;
+
+                            }
                             bool puñ = stateInfo.IsName("puñ");
                             if (!puñ && !attacked)
                             {
+                                dir = (target - transform.position).normalized;
                                 rb2d.MovePosition(transform.position + dir * speed * Time.deltaTime);
                                 anim.SetBool("move", true);
                             }
@@ -238,17 +249,8 @@ public class JefeFinal : MonoBehaviour
     IEnumerator AtacEspecial()
     {
         anim.SetTrigger("especial");
-        yield return new WaitForSecondsRealtime(0.8f);
-        if (!gameObject.GetComponent<SpriteRenderer>().flipX)
-        {
-            bolaEnergiaInici.transform.position = new Vector2(-1.79f, 0.25f);
-            Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
-        } else
-        {
-            bolaEnergiaInici.transform.position = new Vector2(1.79f, 0.25f);
-            Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
-        }
-        
+        yield return new WaitForSecondsRealtime(0.8f);        
+        Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
         yield return new WaitForSecondsRealtime(3f);
         attackingEspecial = false;
     }
