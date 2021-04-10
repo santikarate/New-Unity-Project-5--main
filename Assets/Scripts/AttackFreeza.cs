@@ -10,7 +10,7 @@ public class AttackFreeza : MonoBehaviour
     public float tempsDeVida;
     public float speed;
     public float daño;
-    private bool final;
+    private bool final, destruir;
     private Vector3 direccio;
     private Vector3 vector;
 
@@ -20,11 +20,11 @@ public class AttackFreeza : MonoBehaviour
         JefeFinal = GameObject.FindGameObjectWithTag("Jefe");
         if (JefeFinal.gameObject.GetComponent<SpriteRenderer>().flipX)
         {
-            transform.position = new Vector3(transform.position.x - 3.58f, transform.position.y + 0f, transform.position.z + 0f);
+            transform.position = new Vector3(transform.position.x - 3.58f, transform.position.y + 0f, transform.position.z +  0f);
         }
         explosiu = GetComponent<Rigidbody2D>();
         player = GameObject.FindGameObjectWithTag("Player");
-        
+        destruir = false;
         final = false;
         direccio = player.GetComponent<Transform>().position;
         vector = new Vector3(direccio.x - gameObject.transform.position.x,direccio.y - gameObject.transform.position.y, 0);
@@ -37,15 +37,16 @@ public class AttackFreeza : MonoBehaviour
         {
             AnimatorStateInfo stateInfo = gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
             bool anim = stateInfo.IsName("explosio");
-            if (!anim)
+            if (destruir)
             {
-                Destroy(gameObject);
+                if (!anim)
+                {
+                    Destroy(gameObject);
+                }
             }
         }
         else
         {
-
-            //transform.position = new Vector3(transform.position.x + vector.x, transform.position.y + vector.y, transform.position.y + 0f);
             Vector3 dir = (direccio - transform.position).normalized;
             explosiu.velocity = new Vector2(0.2f, 0.2f);
             gameObject.GetComponent<Rigidbody2D>().MovePosition(transform.position + vector * 0.4f * speed * Time.deltaTime);
@@ -58,15 +59,14 @@ public class AttackFreeza : MonoBehaviour
             gameObject.GetComponent<Animator>().SetTrigger("Explosio");
             yield return new WaitForSeconds(tempsDeVida);
             final = true;
-            //Destroy(gameObject);
         }
         else if (collision.tag != "Jefe" && collision.tag != "Attack")
         {
             if (collision.tag == "Player") {
-                collision.SendMessage("atacatEspecial");
                 gameObject.GetComponent<Animator>().SetTrigger("Explosio");
                 final = true;
-                //Destroy(gameObject);
+                yield return new WaitForSeconds(0.2f);
+                destruir = true;
             }
         }
     }

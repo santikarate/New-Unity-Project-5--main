@@ -27,13 +27,13 @@ public class Enemy2 : MonoBehaviour
 
     Vector3 initialPosition;
     Vector3 target;
-
+    public Text alert;
     Animator anim;
     Rigidbody2D rb2d;
     // Start is called before the first frame update
     void Start()
     {
-        //exclamacio.text = "";
+        alert.text = "";
         player = GameObject.FindGameObjectWithTag("Player");
         mortActive = false;
         initialPosition = transform.position;
@@ -41,7 +41,6 @@ public class Enemy2 : MonoBehaviour
         anim = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
         attackCollider = transform.GetChild(0).GetComponent<CircleCollider2D>();
-        //attackCollider.enabled = false;
         hp = maxHp;
         muerto = false;
         esperant = false;
@@ -87,8 +86,17 @@ public class Enemy2 : MonoBehaviour
                         if (hit.collider.tag == "Player")
                         {
                             target = player.transform.position;
+                            
                         }
                         float distance = Vector3.Distance(target, transform.position);
+                        if (distance < visionRadius)
+                        {
+                            alert.text = "!";
+                        }
+                        else 
+                        {
+                            alert.text = "";
+                        }
                         Vector3 dir = (target - transform.position).normalized;
                         if (target != initialPosition && distance < attackRadius && !attacked)
                         {
@@ -197,7 +205,7 @@ public class Enemy2 : MonoBehaviour
         muerto = true;
         yield return new WaitForSeconds(2.7f);
         Destroy(gameObject);
-        player.SendMessage("pujarMonedes", 200);
+        player.SendMessage("pujarMonedes", 100);
     }
     IEnumerator esperar()
     {
@@ -210,7 +218,6 @@ public class Enemy2 : MonoBehaviour
     { 
         if (collision.tag == "Attack" && !attacked)
         {
-            print("hola");
             Attacked();
         }
     }

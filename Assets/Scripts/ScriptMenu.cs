@@ -9,8 +9,8 @@ public class ScriptMenu : MonoBehaviour
     public static bool segurPause;
     public static bool mort;
 
-    public GameObject menuPause, sortirPausa, mortMenu; 
-    public GameObject player;
+    public GameObject menuPause, sortirPausa, mortMenu, winMenu; 
+    public GameObject player, jefeFinal;
     // Start is called before the first frame update
     void Start()
     {
@@ -33,6 +33,10 @@ public class ScriptMenu : MonoBehaviour
         if (player == null)
         {
             mortMenu.SetActive(true);
+        }
+        if (jefeFinal == null)
+        {
+            winMenu.SetActive(true);
         }
     }
 

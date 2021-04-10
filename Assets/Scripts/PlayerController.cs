@@ -111,11 +111,11 @@ public class PlayerController : MonoBehaviour
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool atacking = stateInfo.IsName("Puño");
         bool especial = stateInfo.IsName("atack especial");
-        if (mana.GetComponent<ManaPlayer>().Mana >= 20f)
+        if (mana.GetComponent<ManaPlayer>().Mana >= 5f)
         {
             if (Input.GetKeyDown(KeyCode.W) && !martillo && !atacking && !especial)
             {
-                mana.SendMessage("GastarMana", 20f);
+                mana.SendMessage("GastarMana", 5f);
                 gameObject.GetComponent<Animator>().SetTrigger("Martillo");
             }
         }
@@ -126,11 +126,11 @@ public class PlayerController : MonoBehaviour
         bool atacking = stateInfo.IsName("Puño");
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool especial = stateInfo.IsName("atack especial");
-        if (mana.GetComponent<ManaPlayer>().Mana >= 20f)
+        if (mana.GetComponent<ManaPlayer>().Mana >= 5f)
         {
             if (Input.GetKeyDown(KeyCode.E) && !atacking && !martillo && !especial)
             {
-                mana.SendMessage("GastarMana", 20f);
+                mana.SendMessage("GastarMana", 5f);
                 Convert.ToInt32(monedes);
                 gameObject.GetComponent<Animator>().SetTrigger("Puño");
             }
@@ -142,11 +142,11 @@ public class PlayerController : MonoBehaviour
         bool atacking = stateInfo.IsName("Puño");
         bool martillo = stateInfo.IsName("Golpe martillo");
         bool especial = stateInfo.IsName("atack especial");
-        if (mana.GetComponent<ManaPlayer>().Mana >= 40f)
+        if (mana.GetComponent<ManaPlayer>().Mana >= 30f)
         {
             if (Input.GetKeyDown(KeyCode.Q) && !atacking && !martillo && !especial)
             {
-                mana.SendMessage("GastarMana", 40f);
+                mana.SendMessage("GastarMana", 30f);
                 gameObject.GetComponent<Animator>().SetTrigger("Atack especial");
                 StartCoroutine(Esperar(0.9f));
             }
@@ -164,23 +164,20 @@ public class PlayerController : MonoBehaviour
             if (collision.tag == "Attack Enemy")
             {
                 num = collision.GetComponentsInParent<SpriteRenderer>()[0].flipX;
-                vida.SendMessage("PrendreMal", 20);
+                vida.SendMessage("PrendreMal", 10);
                 if (!morint)
                 {
                     StartCoroutine(temporitzador(0.5f));
                 }
-            } else if (collision.tag == "Attack Especial")
+            } else if (collision.tag == "AttackFinalJefe")
             {
-                atacatEspecial();
+                num = !collision.GetComponentsInParent<SpriteRenderer>()[0].flipX;
+                vida.SendMessage("PrendreMal", 30);
+                if (!morint)
+                {
+                    StartCoroutine(temporitzador(0.5f));
+                }
             }
-        }
-    }
-    private void atacatEspecial()
-    {
-        vida.SendMessage("PrendreMal", 40);
-        if (!morint)
-        {
-            StartCoroutine(temporitzador(0.5f));
         }
     }
     IEnumerator temporitzador(float second)
@@ -226,7 +223,7 @@ public class PlayerController : MonoBehaviour
     public void pujarMonedes(int i)
     {
         monedesJoc = monedesJoc + i;
-        mana.SendMessage("RecuperarMana", 40);
+        mana.SendMessage("RecuperarMana", 60);
     }
     public void bajarMonedes(int i)
     {

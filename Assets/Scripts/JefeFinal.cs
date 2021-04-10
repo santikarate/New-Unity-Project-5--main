@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class JefeFinal : MonoBehaviour
 {
     public float visionRadius;
@@ -13,7 +11,7 @@ public class JefeFinal : MonoBehaviour
     public float Espera;
     CircleCollider2D attackCollider;
     bool attacking;
-    bool attackingEspecial;
+    bool attackingEspecial, attackEspecial;
     private bool muerto;
     GameObject player;
     bool attacked;
@@ -38,7 +36,6 @@ public class JefeFinal : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        //exclamacio.text = "";
         player = GameObject.FindGameObjectWithTag("Player");
         mortActive = false;
         initialPosition = transform.position;
@@ -50,6 +47,7 @@ public class JefeFinal : MonoBehaviour
         muerto = false;
         esperant = false;
         attackingEspecial = false;
+        attackEspecial = false;
     }
 
     // Update is called once per frame
@@ -78,6 +76,13 @@ public class JefeFinal : MonoBehaviour
                     {
                         anim.SetBool("move", false);
                     }
+                    if (stateInfo.IsName("especial"))
+                    {
+                        attackingEspecial = true;
+                    } else
+                    {
+                        attackingEspecial = false;
+                    }
                     Vector3 target = initialPosition;
                     RaycastHit2D hit = Physics2D.Raycast(
                         transform.position,
@@ -87,15 +92,25 @@ public class JefeFinal : MonoBehaviour
                         );
                     Vector3 forward = transform.TransformDirection(player.transform.position - transform.position);
                     Debug.DrawRay(transform.position, forward, Color.red);
-                    Vector3 dir = (target - transform.position).normalized;
                     if (hit.collider != null)
                     {
                         if (hit.collider.tag == "Player")
                         {
                             target = player.transform.position;
                         }
+                        Vector3 dir = (target - transform.position).normalized;
+                        if (dir.x > 0)
+                        {
+                            gameObject.GetComponent<SpriteRenderer>().flipX = false;
+                            attackCollider.offset = new Vector2(0.4f, 0);
+                        }
+                        else
+                        {
+                            gameObject.GetComponent<SpriteRenderer>().flipX = true;
+                            attackCollider.offset = new Vector2(-0.4f, 0);
+                        }
                         float distance = Vector3.Distance(target, transform.position);
-                        if (target != initialPosition && distance < attackRadius && !attacked)
+                        if (target != initialPosition && distance < attackRadius)
                         {
                             anim.SetBool("move", false);
                             if (!attacking)
@@ -106,54 +121,30 @@ public class JefeFinal : MonoBehaviour
                                 }
                             }
                         }
-                        else if(distance > attackRadius && !attacked && distance < visionRadius)
+                        else if(distance > attackRadius && distance < visionRadius)
                         {
-                            if (dir.x > 0)
-                            {
-                                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                                attackCollider.offset = new Vector2(0.4f, 0);
-                            }
-                            else
-                            {
-                                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-
-                            }
                             bool puñ = stateInfo.IsName("puñ");
-                            if (!puñ && !attacked)
+                            if (!puñ && !attacked && !attackingEspecial)
                             {
                                 dir = (target - transform.position).normalized;
                                 rb2d.MovePosition(transform.position + dir * speed * Time.deltaTime);
                                 anim.SetBool("move", true);
                             }
                         }
-                        if (target == initialPosition && distance < 0.02f && !attacked)
+                        if (target == initialPosition && distance < 0.02f)
                         {
                             anim.SetBool("move", false);
                             transform.position = initialPosition;
-                        } else if (distance < attacEspecialRadius && distance > visionRadius && !attacked)
+                        } else if (distance < attacEspecialRadius && distance > visionRadius)
                         {
                             anim.SetBool("move", false);
-                            if (!attackingEspecial)
+                            if (!attackEspecial)
                             {
-                                attackingEspecial = true;
+                                anim.SetTrigger("especial");
+                                attackEspecial = true;
                                 StartCoroutine(AtacEspecial());
-                                print("atacEspecial");
                             }
                         }
-                        if (anim.GetBool("move") && !attacked)
-                        {
-                            if (dir.x > 0)
-                            {
-                                gameObject.GetComponent<SpriteRenderer>().flipX = false;
-                                attackCollider.offset = new Vector2(0.4f, 0);
-                            }
-                            else
-                            {
-                                gameObject.GetComponent<SpriteRenderer>().flipX = true;
-                                attackCollider.offset = new Vector2(-0.4f, 0);
-                            }
-                        }
-                        
                     }
                     else
                     {
@@ -162,18 +153,15 @@ public class JefeFinal : MonoBehaviour
                 }
                 else
                 {
-                    if (transform.position != initialPosition)
+                    Vector3 dir = (target - transform.position).normalized;
+                    bool x = player.GetComponents<SpriteRenderer>()[0].flipX;
+                    if (x)
                     {
-                        Vector3 dir = (target - transform.position).normalized;
-                        bool x = player.GetComponents<SpriteRenderer>()[0].flipX;
-                        if (x)
-                        {
-                            rb2d.AddForce(new Vector2(-500f / 2 * Time.deltaTime, 0));
-                        }
-                        else
-                        {
-                            rb2d.AddForce(new Vector2(500f / 2 * Time.deltaTime, 0));
-                        }
+                        rb2d.AddForce(new Vector2(-500f / 2 * Time.deltaTime, 0));
+                    }
+                    else
+                    {
+                        rb2d.AddForce(new Vector2(500f / 2 * Time.deltaTime, 0));
                     }
                 }
             }
@@ -229,7 +217,7 @@ public class JefeFinal : MonoBehaviour
         muerto = true;
         yield return new WaitForSeconds(2.7f);
         Destroy(gameObject);
-        player.SendMessage("pujarMonedes", 200);
+        player.SendMessage("pujarMonedes", 400);
     }
     IEnumerator esperar()
     {
@@ -242,16 +230,14 @@ public class JefeFinal : MonoBehaviour
     {
         if (collision.tag == "Attack" && !attacked)
         {
-            print("hola");
             Attacked();
         }
     }
     IEnumerator AtacEspecial()
     {
-        anim.SetTrigger("especial");
         yield return new WaitForSecondsRealtime(0.8f);        
         Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
         yield return new WaitForSecondsRealtime(3f);
-        attackingEspecial = false;
+        attackEspecial = false;
     }
 }
