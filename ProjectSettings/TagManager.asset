@@ -14,6 +14,7 @@ TagManager:
   - Jefe
   - AttackFinalJefe
   - AttackJefe
+  - objecte
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - Jefe
   - atackjefe
   - atackjefefinal
-  - 
+  - objecte
   - 
   - 
   - 
