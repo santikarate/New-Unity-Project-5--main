@@ -102,7 +102,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   visionRadius: 7
   attackRadius: 1.75
-  speed: 6
+  speed: 20
   Espera: 2
   maxHp: 3
   hp: 3
