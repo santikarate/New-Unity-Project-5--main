@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe79f7de72bd773478a51000d416127e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  visionRadius: 7
+  visionRadius: 8
   attackRadius: 1.75
-  speed: 20
+  speed: 10
   Espera: 2
   maxHp: 3
   hp: 3

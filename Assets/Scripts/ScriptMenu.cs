@@ -33,10 +33,12 @@ public class ScriptMenu : MonoBehaviour
         if (player == null)
         {
             mortMenu.SetActive(true);
+            Time.timeScale = 0;
         }
         if (jefeFinal == null)
         {
             winMenu.SetActive(true);
+            Time.timeScale = 0;
         }
     }
 

@@ -15,6 +15,7 @@ TagManager:
   - AttackFinalJefe
   - AttackJefe
   - objecte
+  - AttackEspecial
   layers:
   - Default
   - TransparentFX

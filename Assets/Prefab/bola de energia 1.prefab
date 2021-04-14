@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 7114479351112309845}
   m_Layer: 10
   m_Name: bola de energia 1
-  m_TagString: Attack
+  m_TagString: AttackEspecial
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

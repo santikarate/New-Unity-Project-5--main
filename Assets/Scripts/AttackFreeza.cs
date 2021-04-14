@@ -54,11 +54,12 @@ public class AttackFreeza : MonoBehaviour
     }
     private IEnumerator OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.tag == "object")
+        if (collision.tag == "objecte" || collision.tag == "mapa")
         {
             gameObject.GetComponent<Animator>().SetTrigger("Explosio");
-            yield return new WaitForSeconds(tempsDeVida);
             final = true;
+            yield return new WaitForSeconds(0.2f);
+            destruir = true;
         }
         else if (collision.tag != "Jefe" && collision.tag != "Attack")
         {

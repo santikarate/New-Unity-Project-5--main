@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 7385312017781931152}
   - component: {fileID: 7385312017781930863}
   - component: {fileID: 7385312017781930862}
+  - component: {fileID: 6644290039436272190}
   m_Layer: 17
   m_Name: Barril
   m_TagString: objecte
@@ -99,3 +100,15 @@ CapsuleCollider2D:
   m_Offset: {x: -0.010494947, y: 0.15742445}
   m_Size: {x: 1.3073316, y: 1.6851511}
   m_Direction: 0
+--- !u!114 &6644290039436272190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7385312017781930861}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c8abf881f6463439594adeedf69c9f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

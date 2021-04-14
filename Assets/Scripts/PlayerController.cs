@@ -9,7 +9,6 @@ using UnityEngine.Assertions;
 public class PlayerController : MonoBehaviour
 {
     CircleCollider2D attackCollider;
-    public GameObject atack;
 
     public Transform bolaEnergiaInici;
 
@@ -18,6 +17,8 @@ public class PlayerController : MonoBehaviour
     public GameObject vida;
 
     public GameObject mana;
+
+    public GameObject jefe;
 
     public Text monedes;
 
@@ -171,7 +172,7 @@ public class PlayerController : MonoBehaviour
                 }
             } else if (collision.tag == "AttackFinalJefe")
             {
-                num = !collision.GetComponentsInParent<SpriteRenderer>()[0].flipX;
+                num = jefe.GetComponentsInParent<SpriteRenderer>()[0].flipX;
                 vida.SendMessage("PrendreMal", 30);
                 if (!morint)
                 {

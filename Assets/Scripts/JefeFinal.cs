@@ -185,6 +185,18 @@ public class JefeFinal : MonoBehaviour
         }
 
     }
+    public void Attacked2()
+    {
+        if ((hp = hp - 2) <= 0)
+        {
+            muerto = true;
+        }
+        else
+        {
+            StartCoroutine(EstarAtacat(1f));
+        }
+
+    }
     public void Attacked()
     {
         if (--hp <= 0)
@@ -231,6 +243,10 @@ public class JefeFinal : MonoBehaviour
         if (collision.tag == "Attack" && !attacked)
         {
             Attacked();
+        }
+        else if (collision.tag == "AttackEspecial" && !attacked)
+        {
+            Attacked2();
         }
     }
     IEnumerator AtacEspecial()
