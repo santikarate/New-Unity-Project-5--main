@@ -14,7 +14,7 @@ public class pocio : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        personatge = "goku";
+        personatge = "vegeta";
         destruit = false;
         treureText = false;
     }
@@ -85,7 +85,13 @@ public class pocio : MonoBehaviour
             {
                 return;
             }
-        }    
+        } else if (personatge == "vegeta")
+        {
+            if (!player.GetComponent<PlayerController3>().Pocio())
+            {
+                return;
+            }
+        }
         Destroy(gameObject);
     }
 }

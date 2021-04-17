@@ -19,10 +19,6 @@ public class BarraDeCarga : MonoBehaviour
         carga.transform.localScale = new Vector2(0, 1);
         Time.timeScale = 1;
     }
-    private void FixedUpdate()
-    {
-        print("Adeu");
-    }
     private void Update()
     {
         if (!bloquejador)
