@@ -10,7 +10,10 @@ public class SeguimientoCamara : MonoBehaviour
 
     private Vector2 velocity;
     // Start is called before the first frame update
-
+    private void Start()
+    {
+        follow = GameObject.FindGameObjectWithTag("Player");
+    }
     // Update is called once per frame
     void FixedUpdate()
     {

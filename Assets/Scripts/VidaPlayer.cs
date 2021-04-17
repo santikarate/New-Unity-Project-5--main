@@ -11,6 +11,7 @@ public class VidaPlayer : MonoBehaviour
     public Text vidaText;
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         Hp = maxHp;
     }
     private void Update()

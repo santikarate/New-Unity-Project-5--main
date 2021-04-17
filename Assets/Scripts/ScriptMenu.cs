@@ -14,6 +14,7 @@ public class ScriptMenu : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
         menuPause.SetActive(false);
         sortirPausa.SetActive(false);
         mortMenu.SetActive(false);

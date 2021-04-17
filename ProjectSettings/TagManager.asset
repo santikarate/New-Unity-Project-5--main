@@ -13,7 +13,6 @@ TagManager:
   - Missatge
   - Jefe
   - AttackFinalJefe
-  - AttackJefe
   - objecte
   - AttackEspecial
   layers:
@@ -35,7 +34,7 @@ TagManager:
   - atackjefe
   - atackjefefinal
   - objecte
-  - 
+  - AttackEspecial
   - 
   - 
   - 

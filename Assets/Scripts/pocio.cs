@@ -10,8 +10,11 @@ public class pocio : MonoBehaviour
     private bool destruit;
     private bool treureText;
     public float distancia;
+    private string personatge;
     private void Start()
     {
+        player = GameObject.FindGameObjectWithTag("Player");
+        personatge = "goku";
         destruit = false;
         treureText = false;
     }
@@ -69,10 +72,20 @@ public class pocio : MonoBehaviour
     }
     private void curar()
     {
-        if (!player.GetComponent<PlayerController>().Pocio())
+        if (personatge == "goku")
         {
-            return;
+            if (!player.GetComponent<PlayerController2>().Pocio())
+            {
+                return;
+            }
         }
+        else if (personatge == "bardok")
+        {
+            if (!player.GetComponent<PlayerController>().Pocio())
+            {
+                return;
+            }
+        }    
         Destroy(gameObject);
     }
 }

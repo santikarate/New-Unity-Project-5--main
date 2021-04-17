@@ -12,6 +12,7 @@ public class ManaPlayer : MonoBehaviour
     private void Start()
     {
         Mana = maxMana;
+        player = GameObject.FindGameObjectWithTag("Player");
     }
     private void Update()
     {

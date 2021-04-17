@@ -42,7 +42,7 @@ public class Slash : MonoBehaviour
             Destroy(gameObject);
         } else if (collision.tag != "Player" && collision.tag != "Attack")
         {
-            if (collision.tag == "Enemic") collision.SendMessage("Attacked");
+            if (collision.tag == "Enemic") collision.SendMessage("AttackedEspecial");
             Destroy(gameObject);
         }
     }

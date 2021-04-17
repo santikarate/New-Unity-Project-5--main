@@ -16,11 +16,9 @@ public class Detectar_Player : MonoBehaviour
         yield return new WaitForSeconds(0f);
         if (collision.tag == "Player")
         {
-            print("ey");
             if (!accio)
             {
                 accio = true;
-                print("hola");
                 col.GetComponent<comprovarEnemic>().deteccioDePlayer();
             }
         }
