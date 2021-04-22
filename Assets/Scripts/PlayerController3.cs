@@ -29,7 +29,8 @@ public class PlayerController3 : MonoBehaviour
 
     private bool golpejat, morint, num;
 
-    private Color skin;
+    private Color color;
+    public Color groc, blau, blanc, verd;
 
     private void Awake()
     {
@@ -47,8 +48,23 @@ public class PlayerController3 : MonoBehaviour
         morint = false;
         golpejat = false;
         num = false;
-        skin = Color.white;
-        gameObject.GetComponent<SpriteRenderer>().color = skin;
+        if (PlayerPrefs.GetString("Color") == "Groc")
+        {
+            color = groc;
+        }
+        else if (PlayerPrefs.GetString("Color") == "Blanc")
+        {
+            color = blanc;
+        }
+        else if (PlayerPrefs.GetString("Color") == "Verd")
+        {
+            color = verd;
+        }
+        else if (PlayerPrefs.GetString("Color") == "Blau")
+        {
+            color = blau;
+        }
+        gameObject.GetComponent<SpriteRenderer>().color = color;
     }
     // Update is called once per frame
     void Update()
@@ -203,7 +219,7 @@ public class PlayerController3 : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
         yield return new WaitForSeconds(0.3f);
-        gameObject.GetComponent<SpriteRenderer>().color = skin;
+        gameObject.GetComponent<SpriteRenderer>().color = color;
     }
     private void Mort()
     {

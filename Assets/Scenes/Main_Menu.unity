@@ -2664,7 +2664,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f902ec2894b2c3747b7682d9659f77c1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  escena: Pantalla de carga
+  escena: Escollir Personatge
 --- !u!4 &1351497709
 Transform:
   m_ObjectHideFlags: 0
@@ -2809,7 +2809,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.41400003, y: 0.44844443}
   m_AnchorMax: {x: 0.62250006, y: 0.58311117}
-  m_AnchoredPosition: {x: -0.90800476, y: 1}
+  m_AnchoredPosition: {x: -0.90802, y: 1}
   m_SizeDelta: {x: -1.9663239, y: -1.3352661}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1666383028

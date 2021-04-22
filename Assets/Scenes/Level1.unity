@@ -245,7 +245,6 @@ MonoBehaviour:
   bardok: {fileID: 1787095927}
   goku: {fileID: 1285964972}
   vegeta: {fileID: 1425037402}
-  personatge: 
 --- !u!1 &53593406
 GameObject:
   m_ObjectHideFlags: 0
@@ -33362,6 +33361,10 @@ MonoBehaviour:
   mana: {fileID: 833679372}
   jefe: {fileID: 1814168626}
   monedes: {fileID: 1074017425}
+  groc: {r: 0.9647059, g: 1, b: 0, a: 1}
+  blau: {r: 0, g: 0.7882353, b: 1, a: 1}
+  blanc: {r: 1, g: 1, b: 1, a: 1}
+  verd: {r: 0, g: 1, b: 0.09019608, a: 1}
 --- !u!70 &1285964975
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -33952,7 +33955,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!70 &1425037403
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -34094,6 +34097,10 @@ MonoBehaviour:
   mana: {fileID: 833679372}
   jefe: {fileID: 1814168626}
   monedes: {fileID: 1074017425}
+  groc: {r: 0.9647059, g: 1, b: 0, a: 1}
+  blau: {r: 0, g: 0.7882353, b: 1, a: 1}
+  blanc: {r: 1, g: 1, b: 1, a: 1}
+  verd: {r: 0, g: 1, b: 0.09019608, a: 1}
 --- !u!1001 &1449962039
 PrefabInstance:
   m_ObjectHideFlags: 0

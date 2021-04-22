@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Tenda.unity
     guid: ff7e0fdc275b35f48b6ed9d05b56eded
+  - enabled: 1
+    path: Assets/Scenes/Escollir Personatge.unity
+    guid: 79f59155f5f8c4c49b60609f4a750193
   m_configObjects: {}

@@ -5,7 +5,6 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
-
 public class PlayerController : MonoBehaviour
 {
     CircleCollider2D attackCollider;
@@ -28,6 +27,9 @@ public class PlayerController : MonoBehaviour
 
     private bool golpejat, morint, num;
 
+    private Color color;
+    public Color groc, blau, blanc, verd;
+
     private void Awake()
     {
         Assert.IsNotNull(slashPrefab);
@@ -43,7 +45,23 @@ public class PlayerController : MonoBehaviour
         rebreMal = true;
         morint = false;
         golpejat = false;
-        num = false; 
+        num = false;
+        if (PlayerPrefs.GetString("Color") == "Groc")
+        {
+            color = groc;
+        } else if(PlayerPrefs.GetString("Color") == "Blanc")
+        {
+            color = blanc;
+        }
+        else if (PlayerPrefs.GetString("Color") == "Verd")
+        {
+            color = verd;
+        }
+        else if (PlayerPrefs.GetString("Color") == "Blau")
+        {
+            color = blau;
+        }
+        gameObject.GetComponent<SpriteRenderer>().color = color;
     }
     // Update is called once per frame
     void Update()
@@ -195,7 +213,7 @@ public class PlayerController : MonoBehaviour
     {
         gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 0, 0, 255);
         yield return new WaitForSeconds(0.3f);
-        gameObject.GetComponent<SpriteRenderer>().color = new Color(255, 255, 255, 255);
+        gameObject.GetComponent<SpriteRenderer>().color = color;
     }
     private void Mort()
     {

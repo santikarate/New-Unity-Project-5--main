@@ -89,11 +89,11 @@ public class TendaController : MonoBehaviour
                 "Vida: " + PlayerPrefs.GetInt("Vida Goku") + "\n" +
                 "Mana: " + PlayerPrefs.GetInt("Mana Goku") + "\n" +
                 "Mal: " + PlayerPrefs.GetInt("Mal Goku")*10 + "\n" + "\n" +
-                "Mana: " + PlayerPrefs.GetInt("Mana Goku");
+                "Nivell: " + PlayerPrefs.GetInt("Nivell Goku");
         }
         else 
         {
-            
+            estadistiquesGoku.text = "";
         }
         if (PlayerPrefs.GetString("Vegeta") != "no")
         {
@@ -101,16 +101,17 @@ public class TendaController : MonoBehaviour
                 "Vida: " + PlayerPrefs.GetInt("Vida Vegeta") + "\n" +
                 "Mana: " + PlayerPrefs.GetInt("Mana Vegeta") + "\n" +
                 "Mal: " + PlayerPrefs.GetInt("Mal Vegeta")*10 + "\n" + "\n" +
-                "Mana: " + PlayerPrefs.GetInt("Mana Vegeta");
+                "Nivell: " + PlayerPrefs.GetInt("Nivell Vegeta");
         }
         else
         {
+            estadistiquesVegeta.text = "";
         }
         estadistiquesBardok.text = "Estadistiques:\n \n" +
                 "Vida: " + PlayerPrefs.GetInt("Vida Bardok") + "\n" +
                 "Mana: " + PlayerPrefs.GetInt("Mana Bardok") + "\n" +
                 "Mal: " + PlayerPrefs.GetInt("Mal Bardok")*10 + "\n" + "\n" +
-                "Mana: " + PlayerPrefs.GetInt("Mana Bardok");
+                "Nivell: " + PlayerPrefs.GetInt("Nivell Bardok");
     }
     private void comprovarGoku()
     {

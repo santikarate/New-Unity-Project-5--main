@@ -177,13 +177,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 951f53a302d500243b84059a81eef3a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  atack: {fileID: 0}
   bolaEnergiaInici: {fileID: 1115173516519655358}
   slashPrefab: {fileID: 7114479351112309840, guid: 4e50c454cc21c6f469195984a2052d2a,
     type: 3}
   vida: {fileID: 0}
   mana: {fileID: 0}
+  jefe: {fileID: 0}
   monedes: {fileID: 0}
+  groc: {r: 0.9647059, g: 1, b: 0, a: 1}
+  blau: {r: 0, g: 0.7882353, b: 1, a: 1}
+  blanc: {r: 1, g: 1, b: 1, a: 1}
+  verd: {r: 0, g: 1, b: 0.09019608, a: 1}
 --- !u!50 &1115173517278431931
 Rigidbody2D:
   serializedVersion: 4

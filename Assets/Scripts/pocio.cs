@@ -14,7 +14,7 @@ public class pocio : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
-        personatge = "vegeta";
+        personatge = PlayerPrefs.GetString("Player");
         destruit = false;
         treureText = false;
     }
@@ -72,20 +72,20 @@ public class pocio : MonoBehaviour
     }
     private void curar()
     {
-        if (personatge == "goku")
+        if (personatge == "Goku")
         {
             if (!player.GetComponent<PlayerController2>().Pocio())
             {
                 return;
             }
         }
-        else if (personatge == "bardok")
+        else if (personatge == "Bardok")
         {
             if (!player.GetComponent<PlayerController>().Pocio())
             {
                 return;
             }
-        } else if (personatge == "vegeta")
+        } else if (personatge == "Vegeta")
         {
             if (!player.GetComponent<PlayerController3>().Pocio())
             {

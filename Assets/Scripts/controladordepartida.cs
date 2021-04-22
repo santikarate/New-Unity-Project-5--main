@@ -10,19 +10,25 @@ public class controladordepartida : MonoBehaviour
     public GameObject bardok;
     public GameObject goku;
     public GameObject vegeta;
-    public string personatge;
+    private string personatge;
     void Start()
     {
-        personatge = PlayerPrefs.GetString("jugador");
-        if (personatge == "bardok")
+        personatge = PlayerPrefs.GetString("Player");
+        if (personatge == "Bardok")
         {
             bardok.SetActive(true);
-        } else if (personatge == "goku")
+            goku.SetActive(false);
+            vegeta.SetActive(false);
+        } else if (personatge == "Goku")
         {
             goku.SetActive(true);
-        } else if (personatge == "vegeta")
+            vegeta.SetActive(false);
+            bardok.SetActive(false);
+        } else if (personatge == "Vegeta")
         {
             vegeta.SetActive(true);
+            goku.SetActive(false);
+            bardok.SetActive(false);
         }
     }
 }
