@@ -17,18 +17,12 @@ public class controladordepartida : MonoBehaviour
         if (personatge == "Bardok")
         {
             bardok.SetActive(true);
-            goku.SetActive(false);
-            vegeta.SetActive(false);
         } else if (personatge == "Goku")
         {
             goku.SetActive(true);
-            vegeta.SetActive(false);
-            bardok.SetActive(false);
         } else if (personatge == "Vegeta")
         {
             vegeta.SetActive(true);
-            goku.SetActive(false);
-            bardok.SetActive(false);
         }
     }
 }

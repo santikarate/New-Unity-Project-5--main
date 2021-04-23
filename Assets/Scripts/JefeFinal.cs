@@ -20,10 +20,10 @@ public class JefeFinal : MonoBehaviour
     private bool mortActive;
 
     [Tooltip("Puntos de vida")]
-    public int maxHp = 10;
+    public float maxHp = 10;
 
     [Tooltip("Vida actual")]
-    public int hp;
+    public float hp;
 
     Vector3 initialPosition;
     Vector3 target;
@@ -187,7 +187,21 @@ public class JefeFinal : MonoBehaviour
     }
     public void Attacked2()
     {
-        if ((hp = hp - 2) <= 0)
+        int mal = 0;
+        if (PlayerPrefs.GetString("Player") == "Bardok")
+        {
+            mal = PlayerPrefs.GetInt("Mal Bardok");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Goku")
+        {
+            mal = PlayerPrefs.GetInt("Mal Goku");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Vegeta")
+        {
+            mal = PlayerPrefs.GetInt("Mal Vegeta");
+        }
+        hp = hp - (mal * (2 + (2 * (mal / 2.5f))));
+        if (hp <= 0)
         {
             muerto = true;
         }
@@ -199,7 +213,21 @@ public class JefeFinal : MonoBehaviour
     }
     public void Attacked()
     {
-        if (--hp <= 0)
+        int mal = 0;
+        if (PlayerPrefs.GetString("Player") == "Bardok")
+        {
+            mal = PlayerPrefs.GetInt("Mal Bardok");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Goku")
+        {
+            mal = PlayerPrefs.GetInt("Mal Goku");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Vegeta")
+        {
+            mal = PlayerPrefs.GetInt("Mal Vegeta");
+        }
+        hp = hp - (1 + (1 * (mal / 2.5f)));
+        if (hp <= 0)
         {
             muerto = true;
         }

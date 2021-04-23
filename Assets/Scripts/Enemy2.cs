@@ -20,10 +20,10 @@ public class Enemy2 : MonoBehaviour
     private bool mortActive;
 
     [Tooltip("Puntos de vida")]
-    public int maxHp = 10;
+    public float maxHp = 10;
 
     [Tooltip("Vida actual")]
-    public int hp;
+    public float hp;
 
     Vector3 initialPosition;
     Vector3 target;
@@ -33,8 +33,8 @@ public class Enemy2 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        alert.text = "";
         player = GameObject.FindGameObjectWithTag("Player");
+        alert.text = "";
         mortActive = false;
         initialPosition = transform.position;
         attacked = false;
@@ -177,7 +177,21 @@ public class Enemy2 : MonoBehaviour
     
     public void Attacked()
     {
-        if (--hp <= 0)
+        int mal = 0;
+        if (PlayerPrefs.GetString("Player") == "Bardok")
+        {
+            mal = PlayerPrefs.GetInt("Mal Bardok");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Goku")
+        {
+            mal = PlayerPrefs.GetInt("Mal Goku");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Vegeta")
+        {
+            mal = PlayerPrefs.GetInt("Mal Vegeta");
+        }
+        hp = hp - (1 + (1 * (mal/2.5f)));
+        if (hp <= 0)
         {
             muerto = true;
         } else
@@ -188,8 +202,20 @@ public class Enemy2 : MonoBehaviour
     }
     public void AttackedEspecial()
     {
-        print("2");
-        hp = hp - 2;
+        int mal = 0;
+        if (PlayerPrefs.GetString("Player") == "Bardok")
+        {
+            mal = PlayerPrefs.GetInt("Mal Bardok");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Goku")
+        {
+            mal = PlayerPrefs.GetInt("Mal Goku");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Vegeta")
+        {
+            mal = PlayerPrefs.GetInt("Mal Vegeta");
+        }
+        hp = hp - (mal * (2 + (2 * (mal / 2.5f))));
         if (hp <= 0)
         {
             muerto = true;

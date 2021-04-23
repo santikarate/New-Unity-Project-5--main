@@ -12,6 +12,20 @@ public class VidaPlayer : MonoBehaviour
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
+        
+        if (PlayerPrefs.GetString("Player") == "Bardok")
+        {
+            maxHp = PlayerPrefs.GetInt("Vida Bardok");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Goku")
+        {
+            maxHp = PlayerPrefs.GetInt("Vida Goku");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Vegeta")
+        {
+            maxHp = PlayerPrefs.GetInt("Vida Vegeta");
+        }
+        
         Hp = maxHp;
     }
     private void Update()

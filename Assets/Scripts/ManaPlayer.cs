@@ -11,6 +11,18 @@ public class ManaPlayer : MonoBehaviour
     public Text manaText;
     private void Start()
     {
+        if (PlayerPrefs.GetString("Player") == "Bardok")
+        {
+            maxMana = PlayerPrefs.GetInt("Mana Bardok");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Goku")
+        {
+            maxMana = PlayerPrefs.GetInt("Mana Goku");
+        }
+        else if (PlayerPrefs.GetString("Player") == "Vegeta")
+        {
+            maxMana = PlayerPrefs.GetInt("Mana Vegeta");
+        }
         Mana = maxMana;
         player = GameObject.FindGameObjectWithTag("Player");
     }
