@@ -11,12 +11,14 @@ public class comprovarEnemic : MonoBehaviour
     public BoxCollider2D portaAnterior;
     public BoxCollider2D entrada;
     public BoxCollider2D porta2;
+    public GameObject deteccio;
     private int capacitat, capacitat2;
     private int total;
     bool secondRound;
     // Start is called before the first frame update
     void Start()
     {
+        deteccio.SetActive(true);
         porta.enabled = true;
         porta2.enabled = true;
         portaAnterior.enabled = false;
@@ -78,6 +80,7 @@ public class comprovarEnemic : MonoBehaviour
     public void deteccioDePlayer()
     {
         portaAnterior.enabled = true;
+        deteccio.SetActive(false);
     }
     
 }

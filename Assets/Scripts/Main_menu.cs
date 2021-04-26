@@ -6,7 +6,16 @@ using UnityEngine.SceneManagement;
 public class Main_menu : MonoBehaviour
 {
     public string escena;
-
+    public GameObject panelAjustes;
+    public GameObject panelNovaPartida;
+    public GameObject botoAdmin;
+    public void Start()
+    {
+        panelAjustes.SetActive(false);
+        panelNovaPartida.SetActive(false);
+        botoAdmin.SetActive(false);
+        Time.timeScale = 1;
+    }
     public void Update()
     {
         PlayerPrefs.SetInt("Partida", PlayerPrefs.GetInt("Partida") + 1);
@@ -14,6 +23,10 @@ public class Main_menu : MonoBehaviour
         {
             print("començament");
             declararValors();
+        }
+        if (Input.GetKeyDown(KeyCode.A))
+        {
+            botoAdmin.SetActive(true);
         }
     }
     private void declararValors()
@@ -59,4 +72,32 @@ public class Main_menu : MonoBehaviour
         Debug.Log("Ha sortit del Joc");
         Application.Quit();
     }
+    public void novaPartida()
+    {
+        declararValors();
+        SceneManager.LoadScene("Main_Menu");
+    }
+    public void ajustes()
+    {
+        panelAjustes.SetActive(true);
+        panelNovaPartida.SetActive(false);
+    }
+    public void obrirNovaPartida()
+    {
+        panelNovaPartida.SetActive(true);
+    }
+    public void sortiNovaPartida()
+    {
+        panelNovaPartida.SetActive(false);
+    }
+    public void sortirAjustes()
+    {
+        panelAjustes.SetActive(false);
+    }
+    public void sumarMonedes()
+    {
+        PlayerPrefs.SetInt("Moneda", PlayerPrefs.GetInt("Moneda") + 10000);
+        SceneManager.LoadScene("Main_Menu");
+    }
+    
 }

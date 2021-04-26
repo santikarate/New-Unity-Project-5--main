@@ -358,8 +358,8 @@ public class TendaController : MonoBehaviour
             }
             else
             {
-                comprarGokuGroc.SetActive(true);
-                compratGokuGroc.SetActive(false);
+                comprarGokuGroc.SetActive(false);
+                compratGokuGroc.SetActive(true);
                 costGokuGroc.text = "";
             }
         }
@@ -409,8 +409,8 @@ public class TendaController : MonoBehaviour
             }
             else
             {
-                comprarVegetaGroc.SetActive(true);
-                compratVegetaGroc.SetActive(false);
+                comprarVegetaGroc.SetActive(false);
+                compratVegetaGroc.SetActive(true);
                 costVegetaGroc.text = "";
             }
         }
@@ -446,8 +446,8 @@ public class TendaController : MonoBehaviour
         }
         else
         {
-            comprarBardokGroc.SetActive(true);
-            compratBardokGroc.SetActive(false);
+            comprarBardokGroc.SetActive(false);
+            compratBardokGroc.SetActive(true);
             costBardokGroc.text = "";
         }
     }
