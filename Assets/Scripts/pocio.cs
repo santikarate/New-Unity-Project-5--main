@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 public class pocio : MonoBehaviour
 {
     // Start is called before the first frame update
@@ -10,6 +11,7 @@ public class pocio : MonoBehaviour
     private bool destruit;
     private bool treureText;
     public float distancia;
+    public AudioSource audio;
     private string personatge;
     private void Start()
     {
@@ -92,6 +94,7 @@ public class pocio : MonoBehaviour
                 return;
             }
         }
+        audio.Play();
         Destroy(gameObject);
     }
 }

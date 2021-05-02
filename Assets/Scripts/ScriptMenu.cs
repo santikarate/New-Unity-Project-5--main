@@ -8,7 +8,7 @@ public class ScriptMenu : MonoBehaviour
     public static bool gamePause;
     public static bool segurPause;
     public static bool mort;
-
+    public AudioSource gameOver, victoria;
     public GameObject menuPause, sortirPausa, mortMenu, winMenu; 
     public GameObject player, jefeFinal;
     // Start is called before the first frame update
@@ -18,6 +18,7 @@ public class ScriptMenu : MonoBehaviour
         menuPause.SetActive(false);
         sortirPausa.SetActive(false);
         mortMenu.SetActive(false);
+        winMenu.SetActive(false);
         Time.timeScale = 1;
     }
 
@@ -35,11 +36,13 @@ public class ScriptMenu : MonoBehaviour
         {
             mortMenu.SetActive(true);
             Time.timeScale = 0;
+            gameOver.Play();
         }
         if (jefeFinal == null)
         {
             winMenu.SetActive(true);
             Time.timeScale = 0;
+            victoria.Play();
         }
     }
 

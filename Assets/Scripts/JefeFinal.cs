@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using UnityEngine;
+using UnityEngine.Audio;
+
 public class JefeFinal : MonoBehaviour
 {
     public float visionRadius;
     public float attackRadius;
     public float attacEspecialRadius;
     public float speed;
+    public AudioSource cop, daño;
     
     [Tooltip("Temps d'epera per atacar")]
     public float Espera;
@@ -176,17 +179,18 @@ public class JefeFinal : MonoBehaviour
     }
     private void Attack()
     {
-        AnimatorStateInfo stateInfo = gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
         StartCoroutine(esperar());
         attacking = true;
         if (target != initialPosition)
         {
             anim.SetTrigger("puñ");
+            cop.Play();
         }
 
     }
     public void Attacked2()
     {
+        daño.Play();
         int mal = 0;
         if (PlayerPrefs.GetString("Player") == "Bardok")
         {
@@ -213,6 +217,7 @@ public class JefeFinal : MonoBehaviour
     }
     public void Attacked()
     {
+        daño.Play();
         int mal = 0;
         if (PlayerPrefs.GetString("Player") == "Bardok")
         {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 
 public class Enemy2 : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class Enemy2 : MonoBehaviour
     public Text alert;
     Animator anim;
     Rigidbody2D rb2d;
+    public AudioSource daño, cop;
     // Start is called before the first frame update
     void Start()
     {
@@ -177,6 +179,7 @@ public class Enemy2 : MonoBehaviour
     
     public void Attacked()
     {
+        daño.Play();
         int mal = 0;
         if (PlayerPrefs.GetString("Player") == "Bardok")
         {
@@ -202,6 +205,7 @@ public class Enemy2 : MonoBehaviour
     }
     public void AttackedEspecial()
     {
+        daño.Play();
         int mal = 0;
         if (PlayerPrefs.GetString("Player") == "Bardok")
         {
@@ -251,6 +255,7 @@ public class Enemy2 : MonoBehaviour
     IEnumerator esperar()
     {
         esperant = true;
+        cop.Play();
         yield return new WaitForSeconds(Espera);
         esperant = false;
         attacking = false;

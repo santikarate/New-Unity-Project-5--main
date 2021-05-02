@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Slash : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class Slash : MonoBehaviour
 
     public float daño;
 
-
+    public AudioSource explosio;
 
     private void Awake()
     {
@@ -39,10 +40,12 @@ public class Slash : MonoBehaviour
         if (collision.tag == "object")
         {
             yield return new WaitForSeconds(tempsDeVida);
+            explosio.Play();
             Destroy(gameObject);
         } else if (collision.tag != "Player" && collision.tag != "Attack")
         {
             if (collision.tag == "Enemic") collision.SendMessage("AttackedEspecial");
+            explosio.Play();
             Destroy(gameObject);
         }
     }

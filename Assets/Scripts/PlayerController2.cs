@@ -5,6 +5,7 @@ using System.Threading;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Assertions;
+using UnityEngine.Audio;
 
 public class PlayerController2 : MonoBehaviour
 {
@@ -30,6 +31,7 @@ public class PlayerController2 : MonoBehaviour
 
     private Color color;
     public Color groc, blau, blanc, verd;
+    public AudioSource mal, cop;
 
     private void Awake()
     {
@@ -156,6 +158,7 @@ public class PlayerController2 : MonoBehaviour
                 mana.SendMessage("GastarMana", 5f);
                 Convert.ToInt32(monedes);
                 gameObject.GetComponent<Animator>().SetTrigger("Puño");
+                cop.Play();
             }
         }
     }
@@ -172,6 +175,7 @@ public class PlayerController2 : MonoBehaviour
                 mana.SendMessage("GastarMana", 30f);
                 gameObject.GetComponent<Animator>().SetTrigger("Atack especial");
                 StartCoroutine(Esperar(0.9f));
+                cop.Play();
             }
         }
     }
@@ -210,7 +214,9 @@ public class PlayerController2 : MonoBehaviour
         gameObject.GetComponent<Animator>().SetTrigger("Mal");
         StartCoroutine(canviColor());
         golpejat = true;
-        yield return new WaitForSeconds(0.8f);
+        yield return new WaitForSeconds(0.3f);
+        mal.Play();
+        yield return new WaitForSeconds(0.5f);
         rebreMal = true;
         golpejat = false;
     }

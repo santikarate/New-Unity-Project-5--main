@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class AttackFreeza : MonoBehaviour
 {
@@ -13,7 +14,7 @@ public class AttackFreeza : MonoBehaviour
     private bool final, destruir;
     private Vector3 direccio;
     private Vector3 vector;
-
+    public AudioSource explosio;
     // Start is called before the first frame update
     void Start()
     {
@@ -58,15 +59,17 @@ public class AttackFreeza : MonoBehaviour
         {
             gameObject.GetComponent<Animator>().SetTrigger("Explosio");
             final = true;
-            yield return new WaitForSeconds(0.2f);
+            explosio.Play();
+            yield return new WaitForSeconds(0.4f);
             destruir = true;
         }
         else if (collision.tag != "Jefe" && collision.tag != "Attack")
         {
             if (collision.tag == "Player") {
                 gameObject.GetComponent<Animator>().SetTrigger("Explosio");
+                explosio.Play();
                 final = true;
-                yield return new WaitForSeconds(0.2f);
+                yield return new WaitForSeconds(0.4f);
                 destruir = true;
             }
         }

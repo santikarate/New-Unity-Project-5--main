@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Audio;
 public class VidaPlayer : MonoBehaviour
 {
     public float Hp = 20f;
@@ -9,6 +10,7 @@ public class VidaPlayer : MonoBehaviour
     public Image vida;
     public GameObject player;
     public Text vidaText;
+    public AudioSource pocio;
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -44,6 +46,7 @@ public class VidaPlayer : MonoBehaviour
     }
     public void RecuperarVida(float quantitat)
     {
+        pocio.Play();
         Hp = Mathf.Clamp(Hp + quantitat, 0f, maxHp);
         vida.transform.localScale = new Vector2(Hp / maxHp, 1);
     }
