@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour
 
     private Color color;
     public Color groc, blau, blanc, verd;
-    public AudioSource mal, cop;
+    public AudioSource mal, cop, blast;
 
     private void Awake()
     {
@@ -177,6 +177,7 @@ public class PlayerController : MonoBehaviour
     }
     IEnumerator Esperar(float second)
     {
+        blast.Play();
         yield return new WaitForSecondsRealtime(second);
         Instantiate(slashPrefab, bolaEnergiaInici.position, bolaEnergiaInici.rotation, transform);
     }

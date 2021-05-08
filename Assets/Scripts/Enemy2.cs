@@ -250,7 +250,7 @@ public class Enemy2 : MonoBehaviour
         muerto = true;
         yield return new WaitForSeconds(2.7f);
         Destroy(gameObject);
-        player.SendMessage("pujarMonedes", 100);
+        player.SendMessage("pujarMonedes", 50);
     }
     IEnumerator esperar()
     {

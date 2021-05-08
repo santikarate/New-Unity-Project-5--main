@@ -36,14 +36,9 @@ public class AttackFreeza : MonoBehaviour
     {
         if (final)
         {
-            AnimatorStateInfo stateInfo = gameObject.GetComponent<Animator>().GetCurrentAnimatorStateInfo(0);
-            bool anim = stateInfo.IsName("explosio");
             if (destruir)
             {
-                if (!anim)
-                {
-                    Destroy(gameObject);
-                }
+                Destroy(gameObject);
             }
         }
         else
@@ -60,7 +55,7 @@ public class AttackFreeza : MonoBehaviour
             gameObject.GetComponent<Animator>().SetTrigger("Explosio");
             final = true;
             explosio.Play();
-            yield return new WaitForSeconds(0.4f);
+            yield return new WaitForSeconds(0.8f);
             destruir = true;
         }
         else if (collision.tag != "Jefe" && collision.tag != "Attack")
@@ -69,7 +64,7 @@ public class AttackFreeza : MonoBehaviour
                 gameObject.GetComponent<Animator>().SetTrigger("Explosio");
                 explosio.Play();
                 final = true;
-                yield return new WaitForSeconds(0.4f);
+                yield return new WaitForSeconds(0.8f);
                 destruir = true;
             }
         }

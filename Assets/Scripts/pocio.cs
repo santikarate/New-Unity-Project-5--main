@@ -6,12 +6,12 @@ using UnityEngine.Audio;
 public class pocio : MonoBehaviour
 {
     // Start is called before the first frame update
+    
     public GameObject player;
     public Text missatge;
     private bool destruit;
     private bool treureText;
     public float distancia;
-    public AudioSource audio;
     private string personatge;
     private void Start()
     {
@@ -94,7 +94,6 @@ public class pocio : MonoBehaviour
                 return;
             }
         }
-        audio.Play();
         Destroy(gameObject);
     }
 }

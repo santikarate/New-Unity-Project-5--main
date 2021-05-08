@@ -7,7 +7,7 @@ public class ScriptMenu : MonoBehaviour
 {
     public static bool gamePause;
     public static bool segurPause;
-    public static bool mort;
+    public static bool mort, reproduint;
     public AudioSource gameOver, victoria;
     public GameObject menuPause, sortirPausa, mortMenu, winMenu; 
     public GameObject player, jefeFinal;
@@ -20,6 +20,7 @@ public class ScriptMenu : MonoBehaviour
         mortMenu.SetActive(false);
         winMenu.SetActive(false);
         Time.timeScale = 1;
+        reproduint = false;
     }
 
     // Update is called once per frame
@@ -36,13 +37,13 @@ public class ScriptMenu : MonoBehaviour
         {
             mortMenu.SetActive(true);
             Time.timeScale = 0;
-            gameOver.Play();
+            StartCoroutine(reproduirSo());
         }
         if (jefeFinal == null)
         {
             winMenu.SetActive(true);
             Time.timeScale = 0;
-            victoria.Play();
+            StartCoroutine(reproduirSo());
         }
     }
 
@@ -85,5 +86,19 @@ public class ScriptMenu : MonoBehaviour
     public void sortirNo()
     {
         sortirPausa.SetActive(false);
+    }
+    IEnumerator reproduirSo()
+    {
+        if (!reproduint) {
+            reproduint = true;
+            if (player == null)
+            {
+                gameOver.Play();
+                yield return new WaitForSecondsRealtime(60*60*24);
+            } else if(jefeFinal == null) {
+                victoria.Play();
+                yield return new WaitForSecondsRealtime(60 * 60 * 24);
+            }
+        }
     }
 }

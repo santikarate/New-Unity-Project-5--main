@@ -364,7 +364,7 @@ public class EscollirPersonatge : MonoBehaviour
     public void seleccionarBardokGorc()
     {
         PlayerPrefs.SetString("Player", "Bardok");
-        PlayerPrefs.SetString("Color", "Gorc");
+        PlayerPrefs.SetString("Color", "Groc");
         SceneManager.LoadScene("Pantalla de carga");
     }
 }
